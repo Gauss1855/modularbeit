@@ -1,15 +1,18 @@
 package com.example.gauss.modularbeit;
 
+
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.opencsv.CSVReader;
 
@@ -19,6 +22,8 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
+    String[] line;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,27 +31,46 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         AssetManager assetManager = getAssets();
 
         try {
             InputStream csvStream = assetManager.open("mis.csv");
             InputStreamReader csvStreamReader = new        InputStreamReader(csvStream);
             CSVReader csvReader = new CSVReader(csvStreamReader,'\t');
-            String[] line;
 
             // throw away the header
-            csvReader.readNext();
+            line = csvReader.readNext();
+            line = csvReader.readNext();
+            line = csvReader.readNext();
+            line = csvReader.readNext();
+            line = csvReader.readNext();
+            line = csvReader.readNext();
+
+            // setup the alert builder
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("My title");
+            builder.setMessage(line[1]);
+
+            // add a button
+            builder.setPositiveButton("OK", null);
+
+            // create and show the alert dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
 
             while ((line = csvReader.readNext()) != null) {
+
                 for (String value :line){
                     Log.e("test", value);
                 }
-
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
