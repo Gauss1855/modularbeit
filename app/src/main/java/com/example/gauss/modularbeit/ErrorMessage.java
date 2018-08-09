@@ -3,10 +3,10 @@ package com.example.gauss.modularbeit;
 import java.util.Date;
 
 public class ErrorMessage {
-    String errorMessage;
-    Integer errorNumber;
-    String errorInModule;
-    Date errorOccurance;
-    Date errorSolved;
+    private String errorMessage;
+    private Integer errorNumber;
+    private String errorInModule;
+    private Date errorOccurance;
+    private Date errorSolved;
 
 }

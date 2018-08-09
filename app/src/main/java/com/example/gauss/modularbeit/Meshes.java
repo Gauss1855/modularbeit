@@ -3,5 +3,9 @@ package com.example.gauss.modularbeit;
 import java.util.List;
 
 public class Meshes {
-    List<Mesh> meshes;
+    private List<Mesh> meshes;
+
+    public void add(Mesh mesh){
+        meshes.add(mesh);
+    }
 }
