@@ -7,6 +7,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class CSVReaderCustom {
 
@@ -21,27 +22,14 @@ public class CSVReaderCustom {
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream);
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
 
-//            // setup the alert builder
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setTitle("My title");
-//            builder.setMessage(line[0]);
-//
-//            // add a button
-//            builder.setPositiveButton("OK", null);
-//
-//            // create and show the alert dialog
-//            AlertDialog dialog = builder.create();
-//            dialog.show();
+            List<String[]> rows = csvReader.readAll();
 
-            //while ((line = csvReader.readNext()) != null) {
-            for (int i = 0; i<10 ;i++){
-
-                line = csvReader.readNext();
-
-                for (String value : line) {
+            for (String[] row : rows) {
+                for (String value :row){
                     Log.e("test", value);
                 }
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
