@@ -37,5 +37,9 @@ public class Mesh {
         this.productionEnd = productionEnd;
     }
 
+    public long productionTimeInS(){
+        return (getProductionEnd().getTime() - getProductionStart().getTime()) / 1000;
+    }
+
 
 }

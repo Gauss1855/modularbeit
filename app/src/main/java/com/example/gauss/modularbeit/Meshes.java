@@ -15,6 +15,10 @@ public class Meshes {
         meshes = new ArrayList<>();
     }
 
+    public List<Mesh> getMeshes() {
+        return meshes;
+    }
+
     public boolean add(Mesh mesh) {
         meshes.add(mesh);
         return true;

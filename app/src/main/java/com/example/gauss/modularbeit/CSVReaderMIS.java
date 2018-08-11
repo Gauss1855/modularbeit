@@ -31,23 +31,20 @@ public class CSVReaderMIS {
             List<String[]> rows = csvReader.readAll();
 
             for (int i=0; i < rows.size(); i++) {       //We need the index to have access to the next line; the beginning of the next line is the end of the given line
-                if(rows.get(i).length >2){
+                if(rows.get(i).length >2){              //Be sure that the row has at least two columns, the second colum indicates the row type
                     // Logic to fill the Meshes List, including the Parameter for each mesh
                     if(rows.get(i)[2].equals("P")){
                         try {
                             String meshID = new String(rows.get(i)[5]);
                             Date startDate =  simpleDateFormat.parse(rows.get(i)[0] + " " +rows.get(i)[1]);
-                            Date endDate = simpleDateFormat.parse(rows.get(i+1)[0]+ " " +rows.get(i+1)[1]);
-                            Long prodTime = endDate.getTime() - startDate.getTime();
-
+                            int j = 0;      //search for the next production line
+                            do{
+                                j++;
+                            }
+                            while (!rows.get(i + j)[2].equals("P") && i + j + 1 < rows.size());
+                            Date endDate = simpleDateFormat.parse(rows.get(i+j)[0]+ " " +rows.get(i+j)[1]);
                             Mesh meshRead = new Mesh(meshID,startDate,endDate);
-                            Log.i("test","MeshId " + meshRead.getMeshId());
-                            Log.i("test", "Start " + meshRead.getProductionStart());
-                            Log.i("test", "End " + meshRead.getProductionEnd());
-                            Log.i("test","ProdTime " + prodTime);
-
                             meshes.add(meshRead);
-
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -57,7 +54,5 @@ public class CSVReaderMIS {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.i("test","Anzahl Gitter " + meshes.size());
-        Log.i("test",meshes.get(2).getMeshId());
     }
 }
