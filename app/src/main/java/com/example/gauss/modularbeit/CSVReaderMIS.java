@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,17 +51,13 @@ public class CSVReaderMIS {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-
                     }
-                }
-
-
+                 }
             }
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Log.i("test","Anzahl Gitter " + meshes.size());
+        Log.i("test",meshes.get(2).getMeshId());
     }
 }

@@ -23,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Context ctx = getApplicationContext();
+        Meshes meshes = new Meshes();
+        ErrorMessages errorMessages = new ErrorMessages();
 
-        CSVReaderCustom.CSVParser(ctx);
+        CSVReaderMIS.CSVParser(ctx,meshes,errorMessages);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
