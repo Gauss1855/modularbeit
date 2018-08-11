@@ -12,6 +12,7 @@ import java.util.List;
 public class CSVReaderCustom {
 
     private static String[] line;
+    public static final boolean DEFAULT_KEEP_CR = true;
 
     public static void CSVParser(Context ctx) {
 
@@ -19,16 +20,22 @@ public class CSVReaderCustom {
 
         try {
             InputStream csvStream = assetManager.open("mis.csv");
-            InputStreamReader csvStreamReader = new InputStreamReader(csvStream);
+            InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
 
             List<String[]> rows = csvReader.readAll();
 
             for (String[] row : rows) {
+                Log.d("test", "länge "+ row.length);
+                if(row.length <= 2 & row[2]=="P"){
+                    Log.e("Produktion Startzeit", row[1]);
+                }
                 for (String value :row){
                     Log.e("test", value);
                 }
             }
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
