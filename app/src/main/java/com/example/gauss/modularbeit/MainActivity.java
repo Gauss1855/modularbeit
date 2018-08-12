@@ -23,16 +23,22 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Context ctx = getApplicationContext();
         Meshes meshes = new Meshes();
         ErrorMessages errorMessages = new ErrorMessages();
+        Context ctx = getApplicationContext();
 
-        CSVReaderMIS.CSVParser(ctx,meshes,errorMessages);
+        CSVReaderMIS.CSVParser(ctx, meshes,errorMessages);
 
-        int k = 0;
+        int k = 0; //Testausgabe Produktionszeiten
         for(Mesh mesh: meshes.getMeshes()){
             k++;
-            Log.i("test","Produktionszeit Gitter" + k + " "+ mesh.productionTimeInS());
+            Log.i("test","Produktionszeit Gitter" + k + " "+ mesh.getProductionTimeInS());
+        }
+
+        int l = 0; //Testausgabe Stillstandszeiten
+        for(ErrorMessage errorMessage: errorMessages.getErrormessages()){
+            l++;
+            Log.i("test","Fehlerbehandlungszeit" + l + " "+ errorMessage.errorCorrectionTimeInS());
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -66,7 +72,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }

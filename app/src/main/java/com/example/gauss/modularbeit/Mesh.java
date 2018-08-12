@@ -5,12 +5,12 @@ import java.util.Date;
 public class Mesh {
     private String meshId;
     private Date productionStart;
-    private Date productionEnd;
+    private Long productionTimeInS;
 
-    public Mesh(String meshId, Date productionStart, Date productionEnd) {
+    public Mesh(String meshId, Date productionStart, Long productionTimeInS) {
         this.meshId = meshId;
         this.productionStart = productionStart;
-        this.productionEnd = productionEnd;
+        this.productionTimeInS = productionTimeInS;
     }
 
     public String getMeshId() {
@@ -21,8 +21,8 @@ public class Mesh {
         return productionStart;
     }
 
-    public Date getProductionEnd() {
-        return productionEnd;
+    public Long getProductionTimeInS() {
+        return productionTimeInS;
     }
 
     public void setMeshId(String meshId) {
@@ -33,13 +33,7 @@ public class Mesh {
         this.productionStart = productionStart;
     }
 
-    public void setProductionEnd(Date productionEnd) {
-        this.productionEnd = productionEnd;
+    public void setProductionTimeInS(Long productionTimeInS) {
+        this.productionTimeInS = productionTimeInS;
     }
-
-    public long productionTimeInS(){
-        return (getProductionEnd().getTime() - getProductionStart().getTime()) / 1000;
-    }
-
-
 }
