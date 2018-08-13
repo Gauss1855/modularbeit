@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.WeakHashMap;
 
 public class CSVReaderMIS {
 
@@ -35,27 +36,31 @@ public class CSVReaderMIS {
             while (i < rows.size()) {       //We need the index to have access to the next line; the beginning of the next line is the end of the given line
                 if(rows.get(i).length >2){              //Be sure that the row has at least two columns, the second colum indicates the row type
                     // Logic to fill the Meshes List, including the Parameter for each mesh
-                    if(rows.get(i)[2].equals("P")){
+                    if(rows.get(i)[2].equals("P")) {
+                        Date startDate = new Date();
+                        Date endDate = new Date();
                         Long productionTiemInS = 0L;
+
                         try {
-                            String meshID =  rows.get(i)[5];
-                            Date startDate =  simpleDateFormat.parse(rows.get(i)[0] + " " +rows.get(i)[1]);
-                            int j = 0;
+                            String meshID = rows.get(i)[5];
                             do {
-                                j++;
-                                Date endDate = simpleDateFormat.parse(rows.get(i + j)[0] + " " +rows.get(i+j)[1]);
-                                productionTiemInS = productionTiemInS + (endDate.getTime() - startDate.getTime()) / 1000;
-                                while (!(rows.get(i + j)[6].equals("2051") ||(rows.get(i + j)[2].equals("P")))&& i + j + 1 < rows.size()){
+                                int j = 0;
+                                startDate = simpleDateFormat.parse(rows.get(i)[0] + " " + rows.get(i)[1]);
+                                do {
                                     j++;
                                 }
-                                startDate =  simpleDateFormat.parse(rows.get(i +j)[0] + " " +rows.get(i + j)[1]);
-                                endDate = simpleDateFormat.parse(rows.get(i + j)[0] + " " +rows.get(i+j)[1]);
-                                productionTiemInS = productionTiemInS + (endDate.getTime() - startDate.getTime()) / 1000;
+                                while (!(rows.get(i + j)[6].equals("2051") || (rows.get(i + j)[2].equals("P"))) && i + j + 1 < rows.size());
+                                if (i + j +1 < rows.size()) {
+                                    endDate = simpleDateFormat.parse(rows.get(i + j)[0] + " " + rows.get(i + j)[1]);
+                                    productionTiemInS = productionTiemInS + (endDate.getTime() - startDate.getTime()) / 1000;
+                                }
+                                i = i + j;
                             }
-                            while  (!rows.get(i + j)[2].equals("P")&& i + j + 1 < rows.size());
-                            Mesh meshRead = new Mesh(meshID,startDate,productionTiemInS);
-                            meshes.add(meshRead);
-                            i = i +j;
+                            while (!rows.get(i)[2].equals("P") && i + 1 < rows.size());
+                            if (i + 1 < rows.size()){
+                                Mesh meshRead = new Mesh(meshID, startDate, productionTiemInS);
+                                meshes.add(meshRead);
+                            }
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
