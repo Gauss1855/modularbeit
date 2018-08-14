@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         ErrorMessages errorMessages = new ErrorMessages();
         Context ctx = getApplicationContext();
 
-        CSVReaderMIS.CSVParser(ctx, meshes,errorMessages);
+        CSVReaderMIS csvReaderMIS= new CSVReaderMIS(ctx, meshes,errorMessages);
 
         int k = 0; //Testausgabe Produktionszeiten
         for(Mesh mesh: meshes.getMeshes()){

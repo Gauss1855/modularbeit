@@ -15,11 +15,15 @@ import java.util.WeakHashMap;
 
 public class CSVReaderMIS {
 
-    private static Context ctx;
-    private static String[] line;
-    public static final boolean DEFAULT_KEEP_CR = true;
+    private  Context ctx;
+    private  String[] line;
+    //public  final boolean DEFAULT_KEEP_CR = true;
+    private List<String[]> rows;
+    private Date startDate;
+    private Date endDate;
+    private Long productionTimeInS;
 
-    public static void CSVParser(Context ctx, Meshes meshes, ErrorMessages errorMessages) {
+    public CSVReaderMIS(Context ctx, Meshes meshes, ErrorMessages errorMessages) {
 
         AssetManager assetManager = ctx.getAssets();
 
@@ -28,41 +32,52 @@ public class CSVReaderMIS {
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+            startDate = new Date();
+            endDate = new Date();
+            productionTimeInS = 0L;
 
-            List<String[]> rows = csvReader.readAll();
+            rows = csvReader.readAll();
 
             int i = 0;
 
-            while (i < rows.size()) {       //We need the index to have access to the next line; the beginning of the next line is the end of the given line
+            while (!isRowLastRow(i)) {       //We need the index to have access to the next line; the beginning of the next line is the end of the given line
                 if(rows.get(i).length >2){              //Be sure that the row has at least two columns, the second colum indicates the row type
                     // Logic to fill the Meshes List, including the Parameter for each mesh
-                    if(rows.get(i)[2].equals("P")) {
-                        Date startDate = new Date();
-                        Date endDate = new Date();
-                        Long productionTiemInS = 0L;
-
-                        try {
-                            String meshID = rows.get(i)[5];
+                    if(isRowProduction(i)) {
+                        String meshID = rows.get(i)[5];
+                        setStartDate(i);
+                        if (isRowProduction(i + 1)){
+                            setEndDate(i + 1);
+                            calculateProductionTime(startDate, endDate);
+                        }
+                        else {
                             do {
-                                int j = 0;
-                                startDate = simpleDateFormat.parse(rows.get(i)[0] + " " + rows.get(i)[1]);
-                                do {
-                                    j++;
+                                if (isRowError(i + 1)) {
+                                    setEndDate(i + 1);
+                                    calculateProductionTime(startDate, endDate);
+                                    int j = 0;
+                                    do {
+                                        j++;
+                                    }
+                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j)));
+                                    i = i + j;
+                                    setStartDate(i);
+                                } else {
+                                    int j = 0;
+                                    do {
+                                        j++;
+                                    }
+                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j)));
+                                    i = i + j;
+                                    setStartDate(i);
                                 }
-                                while (!(rows.get(i + j)[6].equals("2051") || (rows.get(i + j)[2].equals("P"))) && i + j + 1 < rows.size());
-                                if (i + j +1 < rows.size()) {
-                                    endDate = simpleDateFormat.parse(rows.get(i + j)[0] + " " + rows.get(i + j)[1]);
-                                    productionTiemInS = productionTiemInS + (endDate.getTime() - startDate.getTime()) / 1000;
-                                }
-                                i = i + j;
                             }
-                            while (!rows.get(i)[2].equals("P") && i + 1 < rows.size());
-                            if (i + 1 < rows.size()){
-                                Mesh meshRead = new Mesh(meshID, startDate, productionTiemInS);
-                                meshes.add(meshRead);
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                            while (!(isRowProduction(i) || isRowLastRow(i))) ;
+                        }
+                        if (!isRowLastRow(i)){
+                            Mesh meshRead = new Mesh(meshID, startDate, productionTimeInS);
+                            meshes.add(meshRead);
+                            i++;
                         }
                     }
                     // Logic to fill the Error List, including the Parameter for each error
@@ -94,5 +109,43 @@ public class CSVReaderMIS {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setStartDate(int startDateRowNumber) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        try {
+            this.startDate = simpleDateFormat.parse(rows.get(startDateRowNumber)[0] + " " + rows.get(startDateRowNumber)[1]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setEndDate(int endDateRowNumber) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        try {
+            this.startDate = simpleDateFormat.parse(rows.get(endDateRowNumber)[0] + " " + rows.get(endDateRowNumber)[1]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private  boolean isRowLastRow(int rowNumber) {
+        return rowNumber >= rows.size()-1;
+    }
+
+    private  boolean isRowInOperation(int rowNumber) {
+        return rows.get(rowNumber)[2].equals(("S")) && rows.get(rowNumber)[6].equals("2051");
+    }
+
+    private  boolean isRowError(int rowNumber) {
+        return rows.get(rowNumber)[2].equals("E") && !rows.get(rowNumber)[6].equals("0");
+    }
+
+    private  boolean isRowProduction(int rowNumber) {
+        return rows.get(rowNumber)[2].equals("P");
+    }
+
+    public void calculateProductionTime(Date startDate, Date endDate) {
+        this.productionTimeInS = (endDate.getTime() - startDate.getTime()) / 1000;
     }
 }
