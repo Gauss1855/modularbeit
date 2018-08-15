@@ -21,6 +21,8 @@ public class CSVReaderMIS {
     private List<String[]> rows;
     private Date startDate;
     private Date endDate;
+    private Date errorOccuranceDate;
+    private Date errorSolvedDate;
     private Long productionTimeInS;
 
     public CSVReaderMIS(Context ctx, Meshes meshes, ErrorMessages errorMessages) {
@@ -28,7 +30,7 @@ public class CSVReaderMIS {
         AssetManager assetManager = ctx.getAssets();
 
         try {
-            InputStream csvStream = assetManager.open("MIS.10000_Test.csv");
+            InputStream csvStream = assetManager.open("MIS.10000.csv");
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -54,12 +56,14 @@ public class CSVReaderMIS {
                             do {
                                 if (isRowError(i + 1)) {
                                     setEndDate(i + 1);
+                                    long productionTimeInSTemp = productionTimeInS;
                                     calculateProductionTime(startDate, endDate);
+                                    productionTimeInS += productionTimeInSTemp;
                                     int j = 0;
                                     do {
                                         j++;
                                     }
-                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j)));
+                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j)) && isRowLastRow(i + j));
                                     i = i + j;
                                     setStartDate(i);
                                 } else {
@@ -67,7 +71,7 @@ public class CSVReaderMIS {
                                     do {
                                         j++;
                                     }
-                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j)));
+                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j))&& isRowError(i + j));
                                     i = i + j;
                                     setStartDate(i);
                                 }
@@ -81,30 +85,25 @@ public class CSVReaderMIS {
                         }
                     }
                     // Logic to fill the Error List, including the Parameter for each error
-                    else if(rows.get(i)[2].equals("E") && !rows.get(i)[6].equals("0")){   //take only lines with an error number
-                        try {
-                            int errorNumber = Integer.parseInt(rows.get(i)[6]);
-                            String errorMessage = rows.get(i)[4];
-                            int errorInModuleId =Integer.parseInt(rows.get(i)[9]);
-                            Date errorOccurance =  simpleDateFormat.parse(rows.get(i)[0] + " " +rows.get(i)[1]);
-                            int j = 0;      //search for machine in operation again, make sure that the search end at the end of the file
-                            do{
-                                j++;
-                            }
-                            while (!(rows.get(i + j)[2].equals("S") && rows.get(i + j)[6].equals("2051")) && i + j + 1 < rows.size());
-                            Date errorSolved = simpleDateFormat.parse(rows.get(i+j)[0]+ " " +rows.get(i+j)[1]);
-                            ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccurance,errorSolved);
-                            errorMessages.add(errorRead);
-                            i = i +j;
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                    else if(isRowError(i)){   //take only lines with an error number
+                        int errorNumber = Integer.parseInt(rows.get(i)[6]);
+                        String errorMessage = rows.get(i)[4];
+                        int errorInModuleId =Integer.parseInt(rows.get(i)[9]);
+                        setErrorOccuranceDate(i);
+                        int j = 0;      //search for machine in operation again, make sure that the search end at the end of the file
+                        do{
+                            j++;
                         }
+                        while (!(isRowInOperation(i + j) || isRowProduction(i + j)) || isRowLastRow(i + j));
+                        setErrorSovedDate(i + j);
+                        ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedDate);
+                        errorMessages.add(errorRead);
+                        i = i +j;
                     }
                     else{
                         i++;
                     }
                  }
-
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -123,12 +122,30 @@ public class CSVReaderMIS {
     public void setEndDate(int endDateRowNumber) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         try {
-            this.startDate = simpleDateFormat.parse(rows.get(endDateRowNumber)[0] + " " + rows.get(endDateRowNumber)[1]);
+            this.endDate = simpleDateFormat.parse(rows.get(endDateRowNumber)[0] + " " + rows.get(endDateRowNumber)[1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
+    public void setErrorOccuranceDate(int errorOccuranceRowNumber) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        try {
+            this.errorOccuranceDate = simpleDateFormat.parse(rows.get(errorOccuranceRowNumber)[0] + " " + rows.get(errorOccuranceRowNumber)[1]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setErrorSovedDate(int errorSovedRowNumber) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        try {
+            this.errorSolvedDate = simpleDateFormat.parse(rows.get(errorSovedRowNumber)[0] + " " + rows.get(errorSovedRowNumber)[1]);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    
     private  boolean isRowLastRow(int rowNumber) {
         return rowNumber >= rows.size()-1;
     }
