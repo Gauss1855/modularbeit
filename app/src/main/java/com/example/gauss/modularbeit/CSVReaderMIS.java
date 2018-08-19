@@ -85,7 +85,7 @@ public class CSVReaderMIS {
                         }
                     }
                     // Logic to fill the Error List, including the Parameter for each error
-                    else if(isRowError(i)){   //take only lines with an error number
+                    else if(isRowError(i)) {   //take only lines with an error number
                         int errorNumber = Integer.parseInt(rows.get(i)[6]);
                         String errorMessage = rows.get(i)[4];
                         int errorInModuleId =Integer.parseInt(rows.get(i)[9]);
@@ -99,6 +99,11 @@ public class CSVReaderMIS {
                         ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedDate);
                         errorMessages.add(errorRead);
                         i = i +j;
+                    }
+                    else if(isRowStop(i)){
+                        setEndDate(i);
+                        calculateProductionTime(startDate, endDate);
+                        i++;
                     }
                     else{
                         i++;
@@ -160,6 +165,10 @@ public class CSVReaderMIS {
 
     private  boolean isRowProduction(int rowNumber) {
         return rows.get(rowNumber)[2].equals("P");
+    }
+
+    private  boolean isRowStop(int rowNumber) {
+        return rows.get(rowNumber)[2].equals("S") && rows.get(rowNumber)[6].equals("8211");
     }
 
     public void calculateProductionTime(Date startDate, Date endDate) {
