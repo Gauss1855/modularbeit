@@ -43,18 +43,17 @@ public class CSVReaderMIS {
             int i = 0;
 
             while (!isRowLastRow(i)) {       //We need the index to have access to the next line; the beginning of the next line is the end of the given line
-                if(rows.get(i).length >2){              //Be sure that the row has at least two columns, the second colum indicates the row type
+                if (rows.get(i).length > 2) {              //Be sure that the row has at least two columns, the second colum indicates the row type
                     // Logic to fill the Meshes List, including the Parameter for each mesh
-                    if(isRowProduction(i)) {
+                    if (isRowProduction(i)) {
                         String meshID = rows.get(i)[5];
                         setStartDate(i);
-                        if (isRowProduction(i + 1)){
+                        if (isRowProduction(i + 1)) {
                             setEndDate(i + 1);
                             calculateProductionTime(startDate, endDate);
-                        }
-                        else {
+                        } else {
                             do {
-                                if (isRowError(i + 1)) {
+                                if (isRowError(i + 1) || isRowStop(i + 1)) {
                                     setEndDate(i + 1);
                                     long productionTimeInSTemp = productionTimeInS;
                                     calculateProductionTime(startDate, endDate);
@@ -71,21 +70,29 @@ public class CSVReaderMIS {
                                     do {
                                         j++;
                                     }
-                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j))&& isRowError(i + j));
+                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j)) && isRowError(i + j));
                                     i = i + j;
                                     setStartDate(i);
                                 }
                             }
-                            while (!(isRowProduction(i) || isRowLastRow(i))) ;
+                            while (!(isRowProduction(i) || isRowLastRow(i)));
                         }
-                        if (!isRowLastRow(i)){
+                        if (!isRowLastRow(i)) {
                             Mesh meshRead = new Mesh(meshID, startDate, productionTimeInS);
                             meshes.add(meshRead);
                             i++;
                         }
                     }
+                    else {
+                        i++;
+                    }
+                }
+            }
+            i = 0;
+            while (!isRowLastRow(i)) {       //We need the index to have access to the next line; the beginning of the next line is the end of the given line
+                if(rows.get(i).length >2){              //Be sure that the row has at least two columns, the second colum indicates the row type
                     // Logic to fill the Error List, including the Parameter for each error
-                    else if(isRowError(i)) {   //take only lines with an error number
+                    if(isRowError(i)) {   //take only lines with an error number
                         int errorNumber = Integer.parseInt(rows.get(i)[6]);
                         String errorMessage = rows.get(i)[4];
                         int errorInModuleId =Integer.parseInt(rows.get(i)[9]);
@@ -99,11 +106,6 @@ public class CSVReaderMIS {
                         ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedDate);
                         errorMessages.add(errorRead);
                         i = i +j;
-                    }
-                    else if(isRowStop(i)){
-                        setEndDate(i);
-                        calculateProductionTime(startDate, endDate);
-                        i++;
                     }
                     else{
                         i++;
@@ -160,7 +162,7 @@ public class CSVReaderMIS {
     }
 
     private  boolean isRowError(int rowNumber) {
-        return rows.get(rowNumber)[2].equals("E") && !rows.get(rowNumber)[6].equals("0");
+        return rows.get(rowNumber)[2].equals("E") && !rows.get(rowNumber)[6].equals("0") && rows.get(rowNumber)[3].equals("Automatic");
     }
 
     private  boolean isRowProduction(int rowNumber) {
