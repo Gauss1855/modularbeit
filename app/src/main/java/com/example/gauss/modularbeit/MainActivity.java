@@ -32,13 +32,18 @@ public class MainActivity extends AppCompatActivity {
         int k = 0; //Testausgabe Produktionszeiten
         for(Mesh mesh: meshes.getMeshes()){
             k++;
-            Log.i("test","Produktionszeit Gitter" + k + " "+ mesh.getProductionTimeInS() + " " + mesh.getProductionStart());
-        }
+            if ( mesh.getProductionTimeInS() < 10 ){
+                Log.i("test","Produktionszeit Gitter " + k + " "+ mesh.getProductionTimeInS() + "                                        " + mesh.getProductionStart());
+            }
+            else if (mesh.getProductionTimeInS() > 50){
+                Log.i("test","Produktionszeit Gitter " + k + " "+ mesh.getProductionTimeInS() + "                                        " + mesh.getProductionStart());
+            }
+         }
 
         int l = 0; //Testausgabe Stillstandszeiten
         for(ErrorMessage errorMessage: errorMessages.getErrormessages()){
             l++;
-            Log.i("test","Fehlerbehandlungszeit" + l + " "+ errorMessage.errorCorrectionTimeInS());
+            Log.i("test","Fehlerbehandlungszeit " + l + " "+ errorMessage.errorCorrectionTimeInS() + "                                  " + errorMessage.getErrorOccurance()) ;
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

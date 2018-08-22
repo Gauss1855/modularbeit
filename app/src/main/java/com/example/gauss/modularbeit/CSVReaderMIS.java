@@ -30,7 +30,7 @@ public class CSVReaderMIS {
         AssetManager assetManager = ctx.getAssets();
 
         try {
-            InputStream csvStream = assetManager.open("MIS.10000.csv");
+            InputStream csvStream = assetManager.open("MIS.31557.csv");
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -49,14 +49,15 @@ public class CSVReaderMIS {
                     if (isRowProduction(i)) {
                         String meshID = rows.get(i)[5];
                         setStartDate(i);
-                        if (isRowProduction(i + 1)) {
-                            setEndDate(i + 1);
-                            calculateProductionTime(startDate, endDate);
+                        i++;
+                        if (isRowProduction(i)) {
+                            //setEndDate(i);
+                            //calculateProductionTime(startDate, endDate);
                         } else {
                             do {
                                 //Search for line with a stop or error to stop production timer
-                                if (isRowError(i + 1) || isRowStop(i + 1)) {
-                                    setEndDate(i + 1);
+                                if (isRowError(i) || isRowStop(i)) {
+                                    setEndDate(i);
                                     long productionTimeInSTemp = productionTimeInS;
                                     calculateProductionTime(startDate, endDate);
                                     productionTimeInS += productionTimeInSTemp;
@@ -67,7 +68,9 @@ public class CSVReaderMIS {
                                     }
                                     while (!(isRowProduction(i + j) || isRowInOperation(i + j)) || isRowLastRow(i + j));
                                     i = i + j;
-                                    setStartDate(i);
+                                    if (isRowInOperation(i)){
+                                        setStartDate(i);
+                                    }
                                 }
                                 else {
                                     i++;
@@ -83,7 +86,6 @@ public class CSVReaderMIS {
                             productionTimeInS += productionTimeInSTemp;
                             Mesh meshRead = new Mesh(meshID, startDate, productionTimeInS);
                             meshes.add(meshRead);
-                            i++;
                         }
                     }
                     else{
