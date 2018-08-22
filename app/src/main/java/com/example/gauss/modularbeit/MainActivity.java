@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         int k = 0; //Testausgabe Produktionszeiten
         for(Mesh mesh: meshes.getMeshes()){
             k++;
-            Log.i("test","Produktionszeit Gitter" + k + " "+ mesh.getProductionTimeInS());
+            Log.i("test","Produktionszeit Gitter" + k + " "+ mesh.getProductionTimeInS() + " " + mesh.getProductionStart());
         }
 
         int l = 0; //Testausgabe Stillstandszeiten
