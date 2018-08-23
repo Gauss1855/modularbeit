@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.opencsv.CSVReader;
 
@@ -18,6 +19,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button simpleButton1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +59,18 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        simpleButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                                setContentView(R.layout.activity_message_list);
+                            }
+        });
+
     }
-    //Das ist ein Test blub
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
