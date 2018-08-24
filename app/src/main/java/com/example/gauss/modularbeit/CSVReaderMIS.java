@@ -30,7 +30,7 @@ public class CSVReaderMIS {
         AssetManager assetManager = ctx.getAssets();
 
         try {
-            InputStream csvStream = assetManager.open("MIS.31557.csv");
+            InputStream csvStream = assetManager.open("MIS.10000.csv");
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -172,19 +172,19 @@ public class CSVReaderMIS {
     }
 
     private  boolean isRowInOperation(int rowNumber) {
-        return rows.get(rowNumber)[2].equals(("S")) && rows.get(rowNumber)[6].equals("2051");
+        return rows.get(rowNumber)[2].equals(("S")) && (rows.get(rowNumber)[6].equals("3") || rows.get(rowNumber)[6].equals("2051"));
     }
 
     private  boolean isRowError(int rowNumber) {
-        return rows.get(rowNumber)[2].equals("E") && !rows.get(rowNumber)[6].equals("0") && rows.get(rowNumber)[3].equals("Automatic");
+        return rows.get(rowNumber)[2].equals("E") && !rows.get(rowNumber)[6].equals("0") && rows.get(rowNumber)[3].equals("Automatic") && rows.get(rowNumber)[8].equals("0");
     }
 
     private  boolean isRowProduction(int rowNumber) {
-        return rows.get(rowNumber)[2].equals("P");
+        return rows.get(rowNumber)[2].equals("P") &&  rows.get(rowNumber)[3].equals("Automatic");
     }
 
     private  boolean isRowStop(int rowNumber) {
-        return rows.get(rowNumber)[2].equals("S") && rows.get(rowNumber)[6].equals("8211");
+        return rows.get(rowNumber)[3].equals("Automatic") && rows.get(rowNumber)[4].equals("Stopped");
     }
 
     public void calculateProductionTime(Date startDate, Date endDate) {
