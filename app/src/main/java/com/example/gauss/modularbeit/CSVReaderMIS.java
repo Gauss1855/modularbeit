@@ -53,7 +53,8 @@ public class CSVReaderMIS {
                         if (isRowProduction(i)) {
                             //setEndDate(i);
                             //calculateProductionTime(startDate, endDate);
-                        } else {
+                        }
+                        else {
                             do {
                                 //Search for line with a stop or error to stop production timer
                                 if (isRowError(i) || isRowStop(i)) {
@@ -66,11 +67,14 @@ public class CSVReaderMIS {
                                     do {
                                         j++;
                                     }
-                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j)) || isRowLastRow(i + j));
+                                    while (!(isRowProduction(i + j) || isRowInOperation(i + j) || isRowLastRow(i + j)));
                                     i = i + j;
                                     if (isRowInOperation(i)){
                                         setStartDate(i);
                                     }
+                                }
+                                else if (isRowLastRow(i)){
+                                    // do not increment the row counter at the end of the file
                                 }
                                 else {
                                     i++;
@@ -102,7 +106,7 @@ public class CSVReaderMIS {
                         do {
                             j++;
                         }
-                        while (!(isRowProduction(i + j) || isRowInOperation(i + j)) || isRowLastRow(i + j));
+                        while (!(isRowProduction(i + j) || isRowInOperation(i + j) || isRowLastRow(i + j)));
                         i = i + j;
                     }
                     // Logic to fill the Error List, including the Parameter for each error
@@ -115,7 +119,7 @@ public class CSVReaderMIS {
                         do{
                             j++;
                         }
-                        while (!(isRowInOperation(i + j) || isRowProduction(i + j)) || isRowLastRow(i + j));
+                        while (!(isRowInOperation(i + j) || isRowProduction(i + j) || isRowLastRow(i + j)));
                         setErrorSovedDate(i + j);
                         ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedDate);
                         errorMessages.add(errorRead);
@@ -184,7 +188,7 @@ public class CSVReaderMIS {
     }
 
     private  boolean isRowStop(int rowNumber) {
-        return rows.get(rowNumber)[3].equals("Automatic") && rows.get(rowNumber)[4].equals("Stopped");
+        return rows.get(rowNumber)[4].equals("Stopped");
     }
 
     public void calculateProductionTime(Date startDate, Date endDate) {

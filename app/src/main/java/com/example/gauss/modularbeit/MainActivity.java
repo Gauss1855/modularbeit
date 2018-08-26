@@ -29,23 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         CSVReaderMIS csvReaderMIS= new CSVReaderMIS(ctx, meshes,errorMessages);
 
-        int k = 0; //Testausgabe Produktionszeiten
-        for(Mesh mesh: meshes.getMeshes()){
-            k++;
-            if ( mesh.getProductionTimeInS() < 10 ){
-                Log.i("test","Produktionszeit Gitter " + k + " "+ mesh.getProductionTimeInS() + "                                        " + mesh.getProductionStart());
-            }
-            else if (mesh.getProductionTimeInS() > 50){
-                Log.i("test","Produktionszeit Gitter " + k + " "+ mesh.getProductionTimeInS() + "                                        " + mesh.getProductionStart());
-            }
-         }
-
-        int l = 0; //Testausgabe Stillstandszeiten
-        for(ErrorMessage errorMessage: errorMessages.getErrormessages()){
-            l++;
-            Log.i("test","Fehlerbehandlungszeit " + l + " "+ errorMessage.errorCorrectionTimeInS() + "                                  " + errorMessage.getErrorOccurance()) ;
-        }
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
