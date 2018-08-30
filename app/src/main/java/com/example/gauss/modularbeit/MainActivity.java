@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Context ctx = getApplicationContext();
 
         CSVReaderMIS csvReaderMIS= new CSVReaderMIS(ctx, meshes,errorMessages);
+        TxtReaderZGTexte txtReaderZGTexte = new TxtReaderZGTexte(ctx, errorMessages);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

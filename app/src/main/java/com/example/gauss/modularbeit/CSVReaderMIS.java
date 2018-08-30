@@ -24,6 +24,7 @@ public class CSVReaderMIS {
     private Date errorOccuranceDate;
     private Date errorSolvedDate;
     private Long productionTimeInS;
+    private Long errorSolvedTimeInS;
 
     public CSVReaderMIS(Context ctx, Meshes meshes, ErrorMessages errorMessages) {
 
@@ -121,7 +122,8 @@ public class CSVReaderMIS {
                         }
                         while (!(isRowInOperation(i + j) || isRowProduction(i + j) || isRowLastRow(i + j)));
                         setErrorSovedDate(i + j);
-                        ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedDate);
+                        calculateErrorTime(errorOccuranceDate,errorSolvedDate);
+                        ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedTimeInS);
                         errorMessages.add(errorRead);
                         i = i +j;
                     }
@@ -193,5 +195,9 @@ public class CSVReaderMIS {
 
     public void calculateProductionTime(Date startDate, Date endDate) {
         this.productionTimeInS = (endDate.getTime() - startDate.getTime()) / 1000;
+    }
+
+    public void calculateErrorTime(Date errorOccuranceDate, Date errorSolvedDate) {
+        this.errorSolvedTimeInS = (errorSolvedDate.getTime() - errorOccuranceDate.getTime()) / 1000;
     }
 }
