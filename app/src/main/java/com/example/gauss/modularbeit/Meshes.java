@@ -10,8 +10,16 @@ import java.util.ListIterator;
 
 public class Meshes {
     private List<Mesh> meshes;
+    private static Meshes instance = null;
 
-    public Meshes(){
+    public static Meshes instance() {
+        if (instance == null)
+            instance = new Meshes();
+
+        return instance;
+    }
+
+    protected Meshes(){
         meshes = new ArrayList<>();
     }
 

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
    // public static final boolean DEFAULT_KEEP_CR= true;
@@ -23,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Meshes meshes = new Meshes();
+        List<Mesh> meshes = Meshes.instance().getMeshes();
         ErrorMessages errorMessages = new ErrorMessages();
         Context ctx = getApplicationContext();
 
-        CSVReaderMIS csvReaderMIS= new CSVReaderMIS(ctx, meshes,errorMessages);
+        CSVReaderMIS csvReaderMIS= new CSVReaderMIS(ctx);
         TxtReaderZGTexte txtReaderZGTexte = new TxtReaderZGTexte(ctx, errorMessages);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
