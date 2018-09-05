@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.WeakHashMap;
@@ -26,7 +27,7 @@ public class CSVReaderMIS {
     private Long productionTimeInS;
     private Long errorSolvedTimeInS;
 
-    public CSVReaderMIS(Context ctx, Meshes meshes, ErrorMessages errorMessages) {
+    public CSVReaderMIS(Context ctx) {
 
         AssetManager assetManager = ctx.getAssets();
 
@@ -90,7 +91,7 @@ public class CSVReaderMIS {
                             calculateProductionTime(startDate, endDate);
                             productionTimeInS += productionTimeInSTemp;
                             Mesh meshRead = new Mesh(meshID, startDate, productionTimeInS);
-                            meshes.add(meshRead);
+                            Meshes.instance().add(meshRead);
                         }
                     }
                     else{
@@ -124,7 +125,7 @@ public class CSVReaderMIS {
                         setErrorSovedDate(i + j);
                         calculateErrorTime(errorOccuranceDate,errorSolvedDate);
                         ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedTimeInS);
-                        errorMessages.add(errorRead);
+                        ErrorMessages.instance().add(errorRead);
                         i = i +j;
                     }
                     else{

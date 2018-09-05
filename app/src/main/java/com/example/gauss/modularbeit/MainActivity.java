@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
    // public static final boolean DEFAULT_KEEP_CR= true;
@@ -23,12 +25,30 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Meshes meshes = new Meshes();
-        ErrorMessages errorMessages = new ErrorMessages();
         Context ctx = getApplicationContext();
 
-        CSVReaderMIS csvReaderMIS= new CSVReaderMIS(ctx, meshes,errorMessages);
-        TxtReaderZGTexte txtReaderZGTexte = new TxtReaderZGTexte(ctx, errorMessages);
+        Meshes.instance();
+        ErrorMessages.instance();
+
+        CSVReaderMIS csvReaderMIS= new CSVReaderMIS(ctx);
+        //TxtReaderZGTexte txtReaderZGTexte = new TxtReaderZGTexte(ctx, errorMessages);
+
+        int k = 0; //Testausgabe Produktionszeiten
+        for(Mesh mesh: Meshes.instance().getMeshes()){
+            k++;
+            if ( mesh.getProductionTimeInS() < 10 ){
+                Log.i("test","Produktionszeit Gitter: " + k + " "+ mesh.getProductionTimeInS() + "                                        " + mesh.getProductionStart());
+            }
+            else if (mesh.getProductionTimeInS() > 50){
+                Log.i("test","Produktionszeit Gitter: " + k + " "+ mesh.getProductionTimeInS() + "                                        " + mesh.getProductionStart());
+            }
+        }
+
+        int l = 0; //Testausgabe Stillstandszeiten
+        for(ErrorMessage errorMessage: ErrorMessages.instance().getErrormessages()){
+            l++;
+            Log.i("test","Fehlerbehandlungszeit: " + l + " " + errorMessage.getErrorSolveTimeInS() + "                                      " + errorMessage.getErrorOccurance());
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -9,12 +9,12 @@ public class ErrorMessage {
     private Date errorOccurance;
     private long errorSolveTimeInS;
 
-    public ErrorMessage(Integer errorNumber, String errorMessage, Integer errorInModuleId, Date errorOccurance, Long timeSolveErrorInS) {
+    public ErrorMessage(Integer errorNumber, String errorMessage, Integer errorInModuleId, Date errorOccurance, Long errorSolveTimeInS) {
         this.errorNumber = errorNumber;
         this.errorMessage = errorMessage;
         this.errorInModuleId = errorInModuleId;
         this.errorOccurance = errorOccurance;
-        this.errorSolveTimeInS = timeSolveErrorInS;
+        this.errorSolveTimeInS = errorSolveTimeInS;
     }
 
     public Integer getErrorNumber() {
@@ -34,7 +34,7 @@ public class ErrorMessage {
     }
 
     public Long getErrorSolveTimeInS() {
-        return getErrorSolveTimeInS();
+        return errorSolveTimeInS;
     }
 
     public void setErrorMessage(String errorMessage) {

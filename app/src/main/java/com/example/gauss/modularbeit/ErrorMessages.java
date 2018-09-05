@@ -5,8 +5,16 @@ import java.util.List;
 
 public class ErrorMessages{
     private List<ErrorMessage> errorMessages;
+    private static ErrorMessages instance = null;
 
-    public ErrorMessages(){
+    public static ErrorMessages instance() {
+        if (instance == null)
+            instance = new ErrorMessages();
+
+        return instance;
+    }
+
+    protected ErrorMessages(){
         errorMessages = new ArrayList<>();
     }
 
