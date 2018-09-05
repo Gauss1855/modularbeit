@@ -28,19 +28,8 @@ public class CSVReaderMIS {
     private Long errorSolvedTimeInS;
 
     public CSVReaderMIS(Context ctx) {
-    }
 
-    class Container {
-        List<Mesh> meshes;
-        List<ErrorMessage> errorMessages;
-    }
-
-
-    public Container read() {
         AssetManager assetManager = ctx.getAssets();
-        Container container = new Container();
-        container.meshes = new ArrayList<Mesh>();
-        container.errorMessages = new ArrayList<ErrorMessage>();
 
         try {
             InputStream csvStream = assetManager.open("MIS.10000.csv");
@@ -102,7 +91,7 @@ public class CSVReaderMIS {
                             calculateProductionTime(startDate, endDate);
                             productionTimeInS += productionTimeInSTemp;
                             Mesh meshRead = new Mesh(meshID, startDate, productionTimeInS);
-                            container.meshes.add(meshRead);
+                            Meshes.instance().add(meshRead);
                         }
                     }
                     else{
@@ -136,7 +125,7 @@ public class CSVReaderMIS {
                         setErrorSovedDate(i + j);
                         calculateErrorTime(errorOccuranceDate,errorSolvedDate);
                         ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedTimeInS);
-                        container.errorMessages.add(errorRead);
+                        ErrorMessages.instance().add(errorRead);
                         i = i +j;
                     }
                     else{
