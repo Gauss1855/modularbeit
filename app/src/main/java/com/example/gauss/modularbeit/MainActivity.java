@@ -12,8 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
    // public static final boolean DEFAULT_KEEP_CR= true;
 
@@ -25,6 +26,16 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Context ctx = getApplicationContext();
+
+        //Selina noch nicht committed
+        Button button1 = findViewById(R.id.button);
+        Button button2 = findViewById(R.id.button2);
+        Button button3 = findViewById(R.id.button3);
+
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        button3.setOnClickListener(this);
+        //Selinas noch nicht committed Ende
 
         Meshes.instance();
         ErrorMessages.instance();
@@ -80,5 +91,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button:
+                    Intent intent = new Intent(this, Alertview.class);
+                    startActivity(intent);
+                    this.finish();
+                break;
+            case R.id.button2:
+                Intent intent2 = new Intent(this, Productionview.class);
+                startActivity(intent2);
+                this.finish();
+                break;
+            case R.id.button3:
+                Intent intent3 = new Intent(this, Helpview.class);
+                startActivity(intent3);
+                this.finish();
+                break;
+        }
+
     }
 }
