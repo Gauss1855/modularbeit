@@ -10,8 +10,8 @@
 
     <TextView
         android:id="@+id/textViewhelpbasic2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="Mit der Funktion Produktionsdaten aufrufen....."
         app:layout_constraintBottom_toTopOf="@+id/textViewhelpbasic3"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
 
     <TextView
         android:id="@+id/textViewhelpbasic3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="Mit der Funktion Logfile-Daten aufrufen....."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,6 +2,10 @@ package com.example.gauss.modularbeit;
 
 import android.app.Activity;
 import android.os.Bundle;
+import com.example.gauss.modularbeit.ErrorMessages;
+import com.example.gauss.modularbeit.ErrorMessage;
+
+import java.util.List;
 
 /**
  * Skeleton of an Android Things activity.
@@ -22,11 +26,22 @@ import android.os.Bundle;
  *
  * @see <a href="https://github.com/androidthings/contrib-drivers#readme">https://github.com/androidthings/contrib-drivers#readme</a>
  */
+
 public class Alertview extends Activity {
+
+    private List<ErrorMessage> errorMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alertview);
     }
+
+    /*public void timeToSolve (ErrorMessage errorMessage) {
+
+            errorMessage.getErrorInModuleId();
+            errorMessage.getErrorNumber();
+            errorMessage.getErrorSolveTimeInS();
+    }*/
+
 }
