@@ -1,5 +1,6 @@
 package com.example.gauss.modularbeit;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,7 +21,7 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button simpleButton1;
+    Button simpleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +60,15 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+      simpleButton = (Button) findViewById(R.id.simpleButton1);
 
-        simpleButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                                setContentView(R.layout.activity_message_list);
+
+      simpleButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+           public void onClick(View view) {
+                //Intent intent = new Intent(MainActivity.this, MessageList.class);
+              setContentView(R.layout.activity_message_list);
+
                             }
         });
 

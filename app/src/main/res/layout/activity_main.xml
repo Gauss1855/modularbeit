@@ -23,11 +23,12 @@
     <include layout="@layout/content_main" />
 
     <Button
-        android:id="@+id/simpleButton"
+        android:id="@+id/simpleButton1"
         style="@android:style/Widget.Material.Light.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+
         android:text="Meldungen" />
 
     <android.support.design.widget.FloatingActionButton
