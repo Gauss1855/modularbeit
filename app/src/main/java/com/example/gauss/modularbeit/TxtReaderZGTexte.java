@@ -15,6 +15,8 @@ public class TxtReaderZGTexte {
 
     public TxtReaderZGTexte(Context ctx, ErrorMessages errorMessages) {
 
+        //test
+
         AssetManager assetManager = ctx.getAssets();
 
         try {
