@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity  {
 
     //implements View.OnClickListener
 
-   // public static final boolean DEFAULT_KEEP_CR= true;
+   public static final boolean DEFAULT_KEEP_CR= true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
