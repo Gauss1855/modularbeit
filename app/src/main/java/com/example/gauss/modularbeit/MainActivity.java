@@ -30,7 +30,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Context ctx = getApplicationContext();
 
         Button button1 = findViewById(R.id.button);
+        Button button2 = findViewById(R.id.button2);
+        Button button3 = findViewById(R.id.button3);
+
         button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        button3.setOnClickListener(this);
 
         Meshes.instance();
         ErrorMessages.instance();
@@ -95,7 +100,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 this.finish();
                 break;
-
+            case R.id.button2:
+                Intent intent2 = new Intent(this, Productionview.class);
+                startActivity(intent2);
+                this.finish();
+                break;
+            case R.id.button3:
+                Intent intent3 = new Intent(this, Helpview.class);
+                startActivity(intent3);
+                this.finish();
+                break;
         }
     }
 }

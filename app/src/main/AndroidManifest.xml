@@ -19,6 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Alertview"
+            android:label="@string/title_activity_alertview"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Productionview"
+            android:label="@string/title_activity_productionview"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Helpview"
+            android:label="@string/title_activity_helpview"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

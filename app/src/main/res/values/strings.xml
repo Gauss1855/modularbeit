@@ -2,4 +2,6 @@
     <string name="app_name">modularbeit</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_alertview">Alertview</string>
+    <string name="title_activity_productionview">Productionview</string>
+    <string name="title_activity_helpview">Helpview</string>
 </resources>
