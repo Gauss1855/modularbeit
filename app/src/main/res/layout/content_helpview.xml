@@ -41,7 +41,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hier steht eine Einleitung"
+        android:text="MIS (Management Information System) ist ein Analyse- und Anzeigetool für Produktionsdaten und Fehlermeldungen. Folgende Funktionen stehen Ihnen zur Verfügung."
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leere1"/>
@@ -79,7 +79,8 @@
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Beschreibung"
+        android:text="Die Funktion Alert-Meldungen aufrufen zeigt Ihnen eine Übersicht der aktuell vorhandenen Fehlermeldungen.
+Diese werden sortiert nach ihrer Fehlernummer angezeigt. Die durchschnittliche Fehlerzeit zur Behebung des Problems wird Ihnen ebenfalls berechnet."
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leer2"/>
@@ -119,7 +120,8 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Beschreibung"
+        android:text="Die Funktion Produktionsdaten aufrufen zeigt Ihnen alle aktuell geladenen Produktionsdaten.
+Die Produktionsdaten sind sortiert nach Ihrer Produktionsnummer. Es wird Ihnen zusätzlich die durchschnittliche Produktionsdauer angezeigt."
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leer4"/>
