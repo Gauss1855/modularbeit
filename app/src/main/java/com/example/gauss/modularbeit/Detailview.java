@@ -1,24 +1,25 @@
 package com.example.gauss.modularbeit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Alertview extends AppCompatActivity {
+public class Detailview extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alertview);
+        setContentView(R.layout.activity_detailview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -31,15 +32,20 @@ public class Alertview extends AppCompatActivity {
             }
         });
 
-        final ListView listView = (ListView) findViewById(R.id.alert_list);
+        int i = 0;
+        List<Error> error = Errors.instance().getErrormessages();
+        Error test = error.get(i);
+        String modulId = "Module Id:" + test.getErrorInModuleId();
+
+        TextView listView = (TextView) findViewById(R.id.textView2);
+        listView.setText(modulId);
 
 
-        ArrayList<String> werte = new ArrayList<>();
-        int i = 1;
+
 
 
         //werte.add(titel);
-        for(Error error : Errors.instance().getErrormessages()){
+       /* for(Error error : Errors.instance().getErrormessages()){
             String errorMessage = error.getErrorMessage();
             String inModuldId = Integer.toString(error.getErrorInModuleId());
 
@@ -47,29 +53,18 @@ public class Alertview extends AppCompatActivity {
             //String[] id = error.getErrorNumber(); + "        " +  "       " + error.getErrorMessage();
 
             ;
-            werte.add(error.getErrorMessage());
+            //werte.add(error.getErrorMessage());
             i++;
-        }
+        }*/
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                Alertview.this.getBaseContext(),
+
+
+
+
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                Detailview.this.getBaseContext(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, werte);
-        listView.setAdapter(adapter);
-
-
-        listView.setClickable(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-
-                Intent appInfo = new Intent(Alertview.this, Detailview.class);
-                startActivity(appInfo);
-            }
-
-        });
-
+        listView.setAdapter(adapter);*/
     }
 
 }
-
-

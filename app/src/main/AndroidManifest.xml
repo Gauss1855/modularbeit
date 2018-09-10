@@ -30,6 +30,10 @@
         <activity
             android:name=".Helpview"
             android:label="@string/title_activity_helpview"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Detailview"
+            android:label="@string/title_activity_detailview"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
