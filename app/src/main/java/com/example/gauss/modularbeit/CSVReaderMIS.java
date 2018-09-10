@@ -3,23 +3,21 @@ package com.example.gauss.modularbeit;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CSVReaderMIS {
 
-    //public  final boolean DEFAULT_KEEP_CR = true;
     private static List<String[]> rows;
     private static Date startDate;
     private static Date endDate;
-    private static Date errorOccuranceDate;
+    private static Date errorOccurrenceDate;
     private static Date errorSolvedDate;
     private static Long productionTimeInS;
     private static Long errorSolvedTimeInS;
@@ -32,7 +30,7 @@ public class CSVReaderMIS {
             InputStream csvStream = assetManager.open("MIS.10000.csv");
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
             startDate = new Date();
             endDate = new Date();
             productionTimeInS = 0L;
@@ -49,10 +47,7 @@ public class CSVReaderMIS {
                         String meshID = rows.get(i)[5];
                         setStartDate(i);
                         i++;
-                        if (isRowProduction(i)) {
-                            //setEndDate(i);
-                            //calculateProductionTime(startDate, endDate);
-                        }
+                        if (isRowProduction(i));
                         else {
                             do {
                                 //Search for line with a stop or error to stop production timer
@@ -71,9 +66,6 @@ public class CSVReaderMIS {
                                     if (isRowInOperation(i)){
                                         setStartDate(i);
                                     }
-                                }
-                                else if (isRowLastRow(i)){
-                                    // do not increment the row counter at the end of the file
                                 }
                                 else {
                                     i++;
@@ -113,15 +105,15 @@ public class CSVReaderMIS {
                         int errorNumber = Integer.parseInt(rows.get(i)[6]);
                         String errorMessage = rows.get(i)[4];
                         int errorInModuleId =Integer.parseInt(rows.get(i)[9]);
-                        setErrorOccuranceDate(i);
+                        setErrorOccurrenceDate(i);
                         int j = 0;      //search for machine in operation again, make sure that the search end at the end of the file
                         do{
                             j++;
                         }
                         while (!(isRowInOperation(i + j) || isRowProduction(i + j) || isRowLastRow(i + j)));
                         setErrorSovedDate(i + j);
-                        calculateErrorTime(errorOccuranceDate,errorSolvedDate);
-                        Error errorRead = new Error(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedTimeInS);
+                        calculateErrorTime(errorOccurrenceDate,errorSolvedDate);
+                        Error errorRead = new Error(errorNumber,errorMessage,errorInModuleId, "", errorOccurrenceDate,errorSolvedTimeInS);
                         Errors.instance().add(errorRead);
                         i = i +j;
                     }
@@ -135,8 +127,8 @@ public class CSVReaderMIS {
         }
     }
 
-    public static void setStartDate(int startDateRowNumber) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private static void setStartDate(int startDateRowNumber) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
         try {
             startDate = simpleDateFormat.parse(rows.get(startDateRowNumber)[0] + " " + rows.get(startDateRowNumber)[1]);
         } catch (ParseException e) {
@@ -144,8 +136,8 @@ public class CSVReaderMIS {
         }
     }
 
-    public static void setEndDate(int endDateRowNumber) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private static void setEndDate(int endDateRowNumber) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
         try {
             endDate = simpleDateFormat.parse(rows.get(endDateRowNumber)[0] + " " + rows.get(endDateRowNumber)[1]);
         } catch (ParseException e) {
@@ -153,17 +145,17 @@ public class CSVReaderMIS {
         }
     }
 
-    public static void setErrorOccuranceDate(int errorOccuranceRowNumber) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private static void setErrorOccurrenceDate(int errorOccuranceRowNumber) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
         try {
-            errorOccuranceDate = simpleDateFormat.parse(rows.get(errorOccuranceRowNumber)[0] + " " + rows.get(errorOccuranceRowNumber)[1]);
+            errorOccurrenceDate = simpleDateFormat.parse(rows.get(errorOccuranceRowNumber)[0] + " " + rows.get(errorOccuranceRowNumber)[1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    public static void setErrorSovedDate(int errorSovedRowNumber) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+    private static void setErrorSovedDate(int errorSovedRowNumber) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
         try {
             errorSolvedDate = simpleDateFormat.parse(rows.get(errorSovedRowNumber)[0] + " " + rows.get(errorSovedRowNumber)[1]);
         } catch (ParseException e) {
@@ -191,11 +183,11 @@ public class CSVReaderMIS {
         return rows.get(rowNumber)[4].equals("Stopped");
     }
 
-    public static void calculateProductionTime(Date startDate, Date endDate) {
+    private static void calculateProductionTime(Date startDate, Date endDate) {
         productionTimeInS = (endDate.getTime() - startDate.getTime()) / 1000;
     }
 
-    public static void calculateErrorTime(Date errorOccuranceDate, Date errorSolvedDate) {
+    private static void calculateErrorTime(Date errorOccuranceDate, Date errorSolvedDate) {
         errorSolvedTimeInS = (errorSolvedDate.getTime() - errorOccuranceDate.getTime()) / 1000;
     }
 }

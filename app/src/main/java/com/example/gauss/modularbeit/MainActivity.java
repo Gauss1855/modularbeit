@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Errors.instance();
 
         CSVReaderMIS.CSVReaderMISRead(ctx);
+        TxtReaderZGTexte.TxtReaderZGTexteRead(ctx);
 
         int k = 0; //Testausgabe Produktionszeiten
         for(Mesh mesh: Meshes.instance().getMeshes()){
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int l = 0; //Testausgabe Stillstandszeiten
         for(Error error : Errors.instance().getErrormessages()){
             l++;
-            Log.i("test","Fehlerbehandlungszeit: " + l + " " + error.getErrorSolveTimeInS() + "                                      " + error.getErrorOccurance());
+            Log.i("test","Fehlerbehandlungszeit: " + l + " " + error.getErrorSolveTimeInS() + "               " + error.getErrorOccurrence() + "                      " + error.getErrorInModuleText());
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

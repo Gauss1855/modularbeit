@@ -6,14 +6,16 @@ public class Error {
     private Integer errorNumber;
     private String errorMessage;
     private Integer errorInModuleId;
-    private Date errorOccurance;
+    private String errorInModuleText;
+    private Date errorOccurrence;
     private long errorSolveTimeInS;
 
-    public Error(Integer errorNumber, String errorMessage, Integer errorInModuleId, Date errorOccurance, Long errorSolveTimeInS) {
+    protected Error(Integer errorNumber, String errorMessage, Integer errorInModuleId, String errorInModuleText, Date errorOccurrence, Long errorSolveTimeInS) {
         this.errorNumber = errorNumber;
         this.errorMessage = errorMessage;
         this.errorInModuleId = errorInModuleId;
-        this.errorOccurance = errorOccurance;
+        this.errorInModuleText = errorInModuleText;
+        this.errorOccurrence = errorOccurrence;
         this.errorSolveTimeInS = errorSolveTimeInS;
     }
 
@@ -29,8 +31,10 @@ public class Error {
         return errorInModuleId;
     }
 
-    public Date getErrorOccurance() {
-        return errorOccurance;
+    public String getErrorInModuleText() {return errorInModuleText; }
+
+    public Date getErrorOccurrence() {
+        return errorOccurrence;
     }
 
     public Long getErrorSolveTimeInS() {
@@ -45,12 +49,12 @@ public class Error {
         this.errorNumber = errorNumber;
     }
 
-    public void setErrorInModuleId(Integer errorInModuleId) {
-        this.errorInModuleId = errorInModuleId;
-    }
+    public void setErrorInModuleId(Integer errorInModuleId) {this.errorInModuleId = errorInModuleId;}
 
-    public void setErrorOccurance(Date errorOccurance) {
-        this.errorOccurance = errorOccurance;
+    public void setErrorInModuleText(String errorInModuleText) {this.errorInModuleText = errorInModuleText;}
+
+    public void setErrorOccurrence(Date errorOccurance) {
+        this.errorOccurrence = errorOccurance;
     }
 
     public void setErrorSolveTimeInS(Long errorSolveTimeInS) {this.errorSolveTimeInS = errorSolveTimeInS;
