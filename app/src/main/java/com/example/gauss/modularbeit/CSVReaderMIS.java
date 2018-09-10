@@ -1,6 +1,6 @@
 package com.example.gauss.modularbeit;
 
-import android.app.Application;
+
 import android.content.Context;
 import android.content.res.AssetManager;
 
@@ -9,25 +9,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
-import java.util.WeakHashMap;
 
 public class CSVReaderMIS {
 
-    private  Context ctx;
-    private  String[] line;
     //public  final boolean DEFAULT_KEEP_CR = true;
-    private List<String[]> rows;
-    private Date startDate;
-    private Date endDate;
-    private Date errorOccuranceDate;
-    private Date errorSolvedDate;
-    private Long productionTimeInS;
-    private Long errorSolvedTimeInS;
+    private static List<String[]> rows;
+    private static Date startDate;
+    private static Date endDate;
+    private static Date errorOccuranceDate;
+    private static Date errorSolvedDate;
+    private static Long productionTimeInS;
+    private static Long errorSolvedTimeInS;
 
-    public CSVReaderMIS(Context ctx) {
+    public static void CSVReaderMISRead(Context ctx) {
 
         AssetManager assetManager = ctx.getAssets();
 
@@ -124,8 +121,8 @@ public class CSVReaderMIS {
                         while (!(isRowInOperation(i + j) || isRowProduction(i + j) || isRowLastRow(i + j)));
                         setErrorSovedDate(i + j);
                         calculateErrorTime(errorOccuranceDate,errorSolvedDate);
-                        ErrorMessage errorRead = new ErrorMessage(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedTimeInS);
-                        ErrorMessages.instance().add(errorRead);
+                        Error errorRead = new Error(errorNumber,errorMessage,errorInModuleId,errorOccuranceDate,errorSolvedTimeInS);
+                        Errors.instance().add(errorRead);
                         i = i +j;
                     }
                     else{
@@ -138,67 +135,67 @@ public class CSVReaderMIS {
         }
     }
 
-    public void setStartDate(int startDateRowNumber) {
+    public static void setStartDate(int startDateRowNumber) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         try {
-            this.startDate = simpleDateFormat.parse(rows.get(startDateRowNumber)[0] + " " + rows.get(startDateRowNumber)[1]);
+            startDate = simpleDateFormat.parse(rows.get(startDateRowNumber)[0] + " " + rows.get(startDateRowNumber)[1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    public void setEndDate(int endDateRowNumber) {
+    public static void setEndDate(int endDateRowNumber) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         try {
-            this.endDate = simpleDateFormat.parse(rows.get(endDateRowNumber)[0] + " " + rows.get(endDateRowNumber)[1]);
+            endDate = simpleDateFormat.parse(rows.get(endDateRowNumber)[0] + " " + rows.get(endDateRowNumber)[1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    public void setErrorOccuranceDate(int errorOccuranceRowNumber) {
+    public static void setErrorOccuranceDate(int errorOccuranceRowNumber) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         try {
-            this.errorOccuranceDate = simpleDateFormat.parse(rows.get(errorOccuranceRowNumber)[0] + " " + rows.get(errorOccuranceRowNumber)[1]);
+            errorOccuranceDate = simpleDateFormat.parse(rows.get(errorOccuranceRowNumber)[0] + " " + rows.get(errorOccuranceRowNumber)[1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    public void setErrorSovedDate(int errorSovedRowNumber) {
+    public static void setErrorSovedDate(int errorSovedRowNumber) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         try {
-            this.errorSolvedDate = simpleDateFormat.parse(rows.get(errorSovedRowNumber)[0] + " " + rows.get(errorSovedRowNumber)[1]);
+            errorSolvedDate = simpleDateFormat.parse(rows.get(errorSovedRowNumber)[0] + " " + rows.get(errorSovedRowNumber)[1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
     
-    private  boolean isRowLastRow(int rowNumber) {
+    private  static boolean isRowLastRow(int rowNumber) {
         return rowNumber >= rows.size()-1;
     }
 
-    private  boolean isRowInOperation(int rowNumber) {
+    private  static boolean isRowInOperation(int rowNumber) {
         return rows.get(rowNumber)[2].equals(("S")) && (rows.get(rowNumber)[6].equals("3") || rows.get(rowNumber)[6].equals("2051"));
     }
 
-    private  boolean isRowError(int rowNumber) {
+    private  static boolean isRowError(int rowNumber) {
         return rows.get(rowNumber)[2].equals("E") && !rows.get(rowNumber)[6].equals("0") && rows.get(rowNumber)[3].equals("Automatic") && rows.get(rowNumber)[8].equals("0");
     }
 
-    private  boolean isRowProduction(int rowNumber) {
+    private  static boolean isRowProduction(int rowNumber) {
         return rows.get(rowNumber)[2].equals("P") &&  rows.get(rowNumber)[3].equals("Automatic");
     }
 
-    private  boolean isRowStop(int rowNumber) {
+    private  static boolean isRowStop(int rowNumber) {
         return rows.get(rowNumber)[4].equals("Stopped");
     }
 
-    public void calculateProductionTime(Date startDate, Date endDate) {
-        this.productionTimeInS = (endDate.getTime() - startDate.getTime()) / 1000;
+    public static void calculateProductionTime(Date startDate, Date endDate) {
+        productionTimeInS = (endDate.getTime() - startDate.getTime()) / 1000;
     }
 
-    public void calculateErrorTime(Date errorOccuranceDate, Date errorSolvedDate) {
-        this.errorSolvedTimeInS = (errorSolvedDate.getTime() - errorOccuranceDate.getTime()) / 1000;
+    public static void calculateErrorTime(Date errorOccuranceDate, Date errorSolvedDate) {
+        errorSolvedTimeInS = (errorSolvedDate.getTime() - errorOccuranceDate.getTime()) / 1000;
     }
 }

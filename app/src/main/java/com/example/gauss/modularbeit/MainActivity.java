@@ -14,8 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
    // public static final boolean DEFAULT_KEEP_CR= true;
@@ -38,10 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         button3.setOnClickListener(this);
 
         Meshes.instance();
-        ErrorMessages.instance();
+        Errors.instance();
 
-        CSVReaderMIS csvReaderMIS= new CSVReaderMIS(ctx);
-        //TxtReaderZGTexte txtReaderZGTexte = new TxtReaderZGTexte(ctx, errorMessages);
+        CSVReaderMIS.CSVReaderMISRead(ctx);
 
         int k = 0; //Testausgabe Produktionszeiten
         for(Mesh mesh: Meshes.instance().getMeshes()){
@@ -55,9 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         int l = 0; //Testausgabe Stillstandszeiten
-        for(ErrorMessage errorMessage: ErrorMessages.instance().getErrormessages()){
+        for(Error error : Errors.instance().getErrormessages()){
             l++;
-            Log.i("test","Fehlerbehandlungszeit: " + l + " " + errorMessage.getErrorSolveTimeInS() + "                                      " + errorMessage.getErrorOccurance());
+            Log.i("test","Fehlerbehandlungszeit: " + l + " " + error.getErrorSolveTimeInS() + "                                      " + error.getErrorOccurance());
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

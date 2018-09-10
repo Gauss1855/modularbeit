@@ -8,14 +8,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 public class TxtReaderZGTexte {
-    private Context ctx;
 
-    public TxtReaderZGTexte(Context ctx, ErrorMessages errorMessages) {
-
-        //test
+    public TxtReaderZGTexte(Context ctx) {
 
         AssetManager assetManager = ctx.getAssets();
 
@@ -31,6 +27,12 @@ public class TxtReaderZGTexte {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        for(Error error : Errors.instance().getErrormessages()){
+            Log.i("test",  Integer.toString(error.getErrorInModuleId()));
+        }
+
+
     }
 
 }

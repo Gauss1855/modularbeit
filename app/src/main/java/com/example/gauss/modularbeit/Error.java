@@ -2,14 +2,14 @@ package com.example.gauss.modularbeit;
 
 import java.util.Date;
 
-public class ErrorMessage {
+public class Error {
     private Integer errorNumber;
     private String errorMessage;
     private Integer errorInModuleId;
     private Date errorOccurance;
     private long errorSolveTimeInS;
 
-    public ErrorMessage(Integer errorNumber, String errorMessage, Integer errorInModuleId, Date errorOccurance, Long errorSolveTimeInS) {
+    public Error(Integer errorNumber, String errorMessage, Integer errorInModuleId, Date errorOccurance, Long errorSolveTimeInS) {
         this.errorNumber = errorNumber;
         this.errorMessage = errorMessage;
         this.errorInModuleId = errorInModuleId;
