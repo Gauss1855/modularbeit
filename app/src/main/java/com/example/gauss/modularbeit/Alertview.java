@@ -14,6 +14,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class Alertview extends AppCompatActivity {
+    ListView listView;
+    Intent myIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class Alertview extends AppCompatActivity {
             }
         });
 
-        final ListView listView = (ListView) findViewById(R.id.alert_list);
+        listView = (ListView) findViewById(R.id.alert_list);
 
 
         ArrayList<String> werte = new ArrayList<>();
@@ -63,6 +65,8 @@ public class Alertview extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
                 Intent appInfo = new Intent(Alertview.this, Detailview.class);
+                String itemValue = (String) listView.getItemAtPosition(position).toString();
+                appInfo.putExtra("", itemValue);
                 startActivity(appInfo);
             }
 
