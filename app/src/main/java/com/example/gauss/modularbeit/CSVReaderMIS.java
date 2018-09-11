@@ -27,7 +27,7 @@ public class CSVReaderMIS {
         AssetManager assetManager = ctx.getAssets();
 
         try {
-            InputStream csvStream = assetManager.open("MIS.10000.csv");
+            InputStream csvStream = assetManager.open("MISEvents.10000.ENG.csv");
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);

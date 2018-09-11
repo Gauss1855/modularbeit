@@ -20,7 +20,7 @@ public class TxtReaderZGTexte {
 
         //Reading the file with the descriptions of the modules in the list zgTexts
         try {
-            InputStream txtStream = assetManager.open("zgs.ENG.txt");
+            InputStream txtStream = assetManager.open("zgs.DEU.txt");
             InputStreamReader txtStreamReader = new InputStreamReader(txtStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             BufferedReader reader = new BufferedReader(txtStreamReader);
             String line = reader.readLine();
