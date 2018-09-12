@@ -43,9 +43,9 @@ public class Detailview extends AppCompatActivity {
         String modulId = "Module Id:" + error.getErrorInModuleId();
         String errorNr = "Error Nummer:" + error.getErrorNumber();
 
-        TextView textModulId = (TextView) findViewById(R.id.textView1);
+        TextView textModulId = (TextView) findViewById(R.id.textView2);
         textModulId.setText(modulId);
-        TextView textErrorNr = (TextView) findViewById(R.id.textView2);
+        TextView textErrorNr = (TextView) findViewById(R.id.textView3);
         textErrorNr.setText(modulId);
 
     }
