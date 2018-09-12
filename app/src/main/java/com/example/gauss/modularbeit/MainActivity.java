@@ -38,8 +38,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Meshes.instance();
         Errors.instance();
 
-        CSVReaderMIS.CSVReaderMISRead(ctx);
-        TxtReaderZGTexte.TxtReaderZGTexteRead(ctx);
+        String fileNameMIS = "MISEvents.10000.DEU.csv";
+        String fileNameZG = "zgs.DEU.txt";
+
+        CSVReaderMIS.CSVReaderMISRead(ctx,fileNameMIS);
+        TxtReaderZGTexte.TxtReaderZGTexteRead(ctx,fileNameZG);
 
         int k = 0; //Testausgabe Produktionszeiten
         for(Mesh mesh: Meshes.instance().getMeshes()){
