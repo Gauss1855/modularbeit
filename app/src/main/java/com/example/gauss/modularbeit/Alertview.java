@@ -65,8 +65,9 @@ public class Alertview extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
                 Intent appInfo = new Intent(Alertview.this, Detailview.class);
-                String itemValue = (String) listView.getItemAtPosition(position).toString();
-                appInfo.putExtra("", itemValue);
+                //String itemValue = (String) listView.getItemAtPosition(position).toString();
+                //int itemValue = Integer.toString(position);
+                appInfo.putExtra("MY_POSITION", position);
                 startActivity(appInfo);
             }
 

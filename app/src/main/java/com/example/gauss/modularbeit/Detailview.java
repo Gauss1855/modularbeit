@@ -33,43 +33,21 @@ public class Detailview extends AppCompatActivity {
             }
         });
 
-        int i = 0;
-        Intent secondIntent = getIntent();
 
-        List<Error> error = Errors.instance().getErrormessages();
-        error.size();
-               
-        Error test = error.get(i);
-        String modulId = "Module Id:" + test.getErrorInModuleId();
+        Bundle secondIntent = getIntent().getExtras();
+        int i = secondIntent.getInt("MY_POSITION");
 
-        TextView listView = (TextView) findViewById(R.id.textView2);
-        listView.setText(modulId);
+        List<Error> errorList = Errors.instance().getErrormessages();
 
+        Error error = errorList.get(i);
+        String modulId = "Module Id:" + error.getErrorInModuleId();
+        String errorNr = "Error Nummer:" + error.getErrorNumber();
 
+        TextView textModulId = (TextView) findViewById(R.id.textView1);
+        textModulId.setText(modulId);
+        TextView textErrorNr = (TextView) findViewById(R.id.textView2);
+        textErrorNr.setText(modulId);
 
-
-
-        //werte.add(titel);
-       /* for(Error error : Errors.instance().getErrormessages()){
-            String errorMessage = error.getErrorMessage();
-            String inModuldId = Integer.toString(error.getErrorInModuleId());
-
-
-            //String[] id = error.getErrorNumber(); + "        " +  "       " + error.getErrorMessage();
-
-            ;
-            //werte.add(error.getErrorMessage());
-            i++;
-        }*/
-
-
-
-
-
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                Detailview.this.getBaseContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, werte);
-        listView.setAdapter(adapter);*/
     }
 
 }
