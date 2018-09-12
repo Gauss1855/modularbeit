@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Detailview extends AppCompatActivity {
@@ -40,13 +41,27 @@ public class Detailview extends AppCompatActivity {
         List<Error> errorList = Errors.instance().getErrormessages();
 
         Error error = errorList.get(i);
-        String modulId = "Module Id:" + error.getErrorInModuleId();
-        String errorNr = "Error Nummer:" + error.getErrorNumber();
+        String errorNr = Integer.toString(error.getErrorNumber());
+        String errorMessage = error.getErrorMessage();
+        String modulId =  Integer.toString(error.getErrorInModuleId());
+        String modulText = error.getErrorInModuleText();
+        Date date = error.getErrorOccurrence();
+        String occurrence = date.toString();
+        String solve = Long.toString(error.getErrorSolveTimeInS());
 
-        TextView textModulId = (TextView) findViewById(R.id.textView2);
+        TextView textErrorNr = (TextView) findViewById(R.id.textErrorNr);
+        TextView textErrorMessage = (TextView) findViewById(R.id.textErrorMessage);
+        TextView textModulId = (TextView) findViewById(R.id.textModulID);
+        TextView textOccurrence = (TextView) findViewById(R.id.textOc);
+        TextView textSolve = (TextView) findViewById(R.id.textSolve);
+
+        textErrorNr.setText(errorNr);
+        textErrorMessage.setText(errorMessage);
         textModulId.setText(modulId);
-        TextView textErrorNr = (TextView) findViewById(R.id.textView3);
-        textErrorNr.setText(modulId);
+        textOccurrence.setText(occurrence);
+        textSolve.setText(solve);
+
+
 
     }
 
