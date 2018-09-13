@@ -41,21 +41,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Meshes.instance();
         Errors.instance();
 
-        String fileNameMIS = "MISEvents.10000.DEU.csv";
-        String fileNameZG = "zgs.DEU.txt";
-
         AssetManager assetManager = getApplicationContext().getAssets();
 
         try {
-            InputStream csvStream = assetManager.open(fileNameMIS);
-            CSVReaderMIS.CSVReaderMISRead(csvStream,fileNameMIS);
+            InputStream csvStream = assetManager.open("MISEvents.10000.DEU.csv");
+            CSVReaderMIS.CSVReaderMISRead(csvStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            InputStream txtStream = assetManager.open(fileNameMIS);
-            TxtReaderZGTexte.TxtReaderZGTexteRead(txtStream,fileNameMIS);
+            InputStream txtStream = assetManager.open("zgs.DEU.txt");
+            TxtReaderZGTexte.TxtReaderZGTexteRead(txtStream);
         } catch (IOException e) {
             e.printStackTrace();
         }

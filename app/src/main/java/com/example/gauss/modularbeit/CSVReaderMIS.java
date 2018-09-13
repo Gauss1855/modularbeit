@@ -24,7 +24,7 @@ public class CSVReaderMIS {
     private static Long productionTimeInS;
     private static Long errorSolvedTimeInS;
 
-    public static void CSVReaderMISRead(InputStream csvStream, String fileNameMIS) {
+    public static void CSVReaderMISRead(InputStream csvStream) {
 
         try {
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file

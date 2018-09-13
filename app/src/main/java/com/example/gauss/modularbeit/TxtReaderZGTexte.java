@@ -13,7 +13,7 @@ import static org.apache.commons.lang3.StringUtils.trim;
 
 public class TxtReaderZGTexte {
 
-    public static void TxtReaderZGTexteRead(InputStream txtStream, String fileNameZG) {
+    public static void TxtReaderZGTexteRead(InputStream txtStream) {
 
         List<String> zgTexts = new ArrayList<>();
 
