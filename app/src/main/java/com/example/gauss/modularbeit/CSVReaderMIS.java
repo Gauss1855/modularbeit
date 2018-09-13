@@ -14,6 +14,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * This class holds the static method CSVReaderMISRead which transforms the CSV files in the object list Meshes and Errors
+ */
 public class CSVReaderMIS {
 
     private static List<String[]> rows;
@@ -24,12 +27,13 @@ public class CSVReaderMIS {
     private static Long productionTimeInS;
     private static Long errorSolvedTimeInS;
 
-    public static void CSVReaderMISRead(Context ctx, String fileNameMIS) {
-
-        AssetManager assetManager = ctx.getAssets();
+    /**
+     * This method reads the CSV File coming from the csvStream and puts the content in the Meshes and Errors list
+     * @param csvStream is a Inputstream with the CSV File
+     */
+    public static void CSVReaderMISRead(InputStream csvStream) {
 
         try {
-            InputStream csvStream = assetManager.open(fileNameMIS);
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
@@ -49,14 +53,13 @@ public class CSVReaderMIS {
                         String meshID = rows.get(i)[5];
                         setStartDate(i);
                         i++;
-                        if (isRowProduction(i));
-                        else {
+                        if (!isRowProduction(i)){
                             do {
                                 //Search for line with a stop or error to stop production timer
                                 if (isRowError(i) || isRowStop(i)) {
                                     setEndDate(i);
                                     long productionTimeInSTemp = productionTimeInS;
-                                    calculateProductionTime(startDate, endDate);
+                                    calculateProductionTime();
                                     productionTimeInS += productionTimeInSTemp;
                                     int j = 0;
                                     //Search for a restart of the production
@@ -79,7 +82,7 @@ public class CSVReaderMIS {
                         if (!isRowLastRow(i)) {
                             setEndDate(i);
                             long productionTimeInSTemp = productionTimeInS;
-                            calculateProductionTime(startDate, endDate);
+                            calculateProductionTime();
                             productionTimeInS += productionTimeInSTemp;
                             Mesh meshRead = new Mesh(meshID, startDate, productionTimeInS);
                             Meshes.instance().add(meshRead);
@@ -113,12 +116,14 @@ public class CSVReaderMIS {
                             j++;
                         }
                         while (!(isRowInOperation(i + j) || isRowProduction(i + j) || isRowLastRow(i + j)));
-                        setErrorSovedDate(i + j);
-                        calculateErrorTime(errorOccurrenceDate,errorSolvedDate);
-                        Error errorRead = new Error(errorNumber,errorMessage,errorInModuleId, "", errorOccurrenceDate,errorSolvedTimeInS);
-                        Errors.instance().add(errorRead);
-                        i = i +j;
-                    }
+                            if (!isRowLastRow(i+j)) {
+                                setErrorSovedDate(i + j);
+                                calculateErrorTime();
+                                Error errorRead = new Error(errorNumber, errorMessage, errorInModuleId, "", errorOccurrenceDate, errorSolvedTimeInS);
+                                Errors.instance().add(errorRead);
+                            }
+                            i = i + j;
+                        }
                     else{
                         i++;
                     }
@@ -185,11 +190,11 @@ public class CSVReaderMIS {
         return rows.get(rowNumber)[4].equals("Stopped");
     }
 
-    private static void calculateProductionTime(Date startDate, Date endDate) {
+    private static void calculateProductionTime() {
         productionTimeInS = (endDate.getTime() - startDate.getTime()) / 1000;
     }
 
-    private static void calculateErrorTime(Date errorOccuranceDate, Date errorSolvedDate) {
-        errorSolvedTimeInS = (errorSolvedDate.getTime() - errorOccuranceDate.getTime()) / 1000;
+    private static void calculateErrorTime() {
+        errorSolvedTimeInS = (errorSolvedDate.getTime() - errorOccurrenceDate.getTime()) / 1000;
     }
 }

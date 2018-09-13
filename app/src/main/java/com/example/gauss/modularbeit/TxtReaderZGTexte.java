@@ -11,16 +11,21 @@ import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.trim;
 
+/**
+ * This class holds the static method TxtReaderZGTexteRead which adds the module description texts to the Errors
+ */
 public class TxtReaderZGTexte {
 
-    public static void TxtReaderZGTexteRead(Context ctx, String fileNameZG) {
+    /**
+     * This method reads the txt File coming from the txtStream and add the module description to the Errors
+     * @param txtStream is a Inputstream with the txt File
+     */
+    public static void TxtReaderZGTexteRead(InputStream txtStream) {
 
-        AssetManager assetManager = ctx.getAssets();
         List<String> zgTexts = new ArrayList<>();
 
         //Reading the file with the descriptions of the modules in the list zgTexts
         try {
-            InputStream txtStream = assetManager.open(fileNameZG);
             InputStreamReader txtStreamReader = new InputStreamReader(txtStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             BufferedReader reader = new BufferedReader(txtStreamReader);
             String line = reader.readLine();

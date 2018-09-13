@@ -3,6 +3,7 @@ package com.example.gauss.modularbeit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,8 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Context ctx = getApplicationContext();
-
         Button button1 = findViewById(R.id.button);
         Button button2 = findViewById(R.id.button2);
         Button button3 = findViewById(R.id.button3);
@@ -38,27 +41,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Meshes.instance();
         Errors.instance();
 
-        String fileNameMIS = "MISEvents.10000.DEU.csv";
-        String fileNameZG = "zgs.DEU.txt";
-
-        CSVReaderMIS.CSVReaderMISRead(ctx,fileNameMIS);
-        TxtReaderZGTexte.TxtReaderZGTexteRead(ctx,fileNameZG);
-
-        int k = 0; //Testausgabe Produktionszeiten
-        for(Mesh mesh: Meshes.instance().getMeshes()){
-            k++;
-            if ( mesh.getProductionTimeInS() < 10 ){
-                Log.i("test","Produktionszeit Gitter: " + k + " "+ mesh.getProductionTimeInS() + "                                        " + mesh.getProductionStart());
-            }
-            else if (mesh.getProductionTimeInS() > 50){
-                Log.i("test","Produktionszeit Gitter: " + k + " "+ mesh.getProductionTimeInS() + "                                        " + mesh.getProductionStart());
-            }
+        //Initialize the InputStream here to test the FileReader with a different test file
+        AssetManager assetManager = getApplicationContext().getAssets();
+        try {
+            InputStream csvStream = assetManager.open("MISEvents.10000.DEU.csv");
+            CSVReaderMIS.CSVReaderMISRead(csvStream);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        int l = 0; //Testausgabe Stillstandszeiten
-        for(Error error : Errors.instance().getErrormessages()){
-            l++;
-            Log.i("test","Fehlerbehandlungszeit: " + l + " " + error.getErrorSolveTimeInS() + "               " + error.getErrorOccurrence() + "                      " + error.getErrorInModuleText());
+        try {
+            InputStream txtStream = assetManager.open("zgs.DEU.txt");
+            TxtReaderZGTexte.TxtReaderZGTexteRead(txtStream);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
