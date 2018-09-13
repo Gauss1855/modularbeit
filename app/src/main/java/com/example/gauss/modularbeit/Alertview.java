@@ -37,20 +37,11 @@ public class Alertview extends AppCompatActivity {
 
 
         ArrayList<String> werte = new ArrayList<>();
-        int i = 1;
 
-
-        //werte.add(titel);
         for(Error error : Errors.instance().getErrormessages()){
-            String errorMessage = error.getErrorMessage();
-            String inModuldId = Integer.toString(error.getErrorInModuleId());
 
-
-            //String[] id = error.getErrorNumber(); + "        " +  "       " + error.getErrorMessage();
-
-            ;
             werte.add(error.getErrorMessage());
-            i++;
+
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(

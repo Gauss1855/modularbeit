@@ -5,4 +5,5 @@
     <string name="title_activity_productionview">Productionview</string>
     <string name="title_activity_helpview">Helpview</string>
     <string name="title_activity_detailview">Detailview</string>
+    <string name="title_activity_detailviewproduction">Detailinfo</string>
 </resources>

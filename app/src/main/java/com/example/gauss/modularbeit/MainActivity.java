@@ -99,17 +99,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button:
                 Intent intent = new Intent(this, Alertview.class);
                 startActivity(intent);
-                this.finish();
+                //this.finish();
                 break;
             case R.id.button2:
                 Intent intent2 = new Intent(this, Productionview.class);
                 startActivity(intent2);
-                this.finish();
+                //this.finish();
                 break;
             case R.id.button3:
                 Intent intent3 = new Intent(this, Helpview.class);
                 startActivity(intent3);
-                this.finish();
+                //this.finish();
                 break;
         }
     }

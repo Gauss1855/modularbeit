@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Detailviewproduction"
+    tools:showIn="@layout/activity_detailviewproduction">
+
+
+    <TextView
+        android:id="@+id/MeshId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mesh ID"
+        android:textAlignment="center"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textMeshId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/MeshId"
+        app:layout_constraintTop_toBottomOf="@+id/ProductionStart" />
+
+    <TextView
+        android:id="@+id/ProductionStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Produktions Start"
+        android:textAlignment="center"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textMeshId"
+        app:layout_constraintTop_toBottomOf="@+id/textProduktionStart" />
+
+
+    <TextView
+        android:id="@+id/textProduktionStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ProductionStart"
+        app:layout_constraintTop_toBottomOf="@+id/ModulID" />
+
+
+    <TextView
+        android:id="@+id/ProductionTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Produktions Zeit"
+        android:textAlignment="center"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textProduktionStart"
+        app:layout_constraintTop_toBottomOf="@+id/textProductionTime" />
+
+    <TextView
+        android:id="@+id/textProductionTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ProductionTime"
+         />
+
+</android.support.constraint.ConstraintLayout>
