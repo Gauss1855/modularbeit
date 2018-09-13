@@ -24,12 +24,9 @@ public class CSVReaderMIS {
     private static Long productionTimeInS;
     private static Long errorSolvedTimeInS;
 
-    public static void CSVReaderMISRead(Context ctx, String fileNameMIS) {
-
-        AssetManager assetManager = ctx.getAssets();
+    public static void CSVReaderMISRead(InputStream csvStream, String fileNameMIS) {
 
         try {
-            InputStream csvStream = assetManager.open(fileNameMIS);
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
@@ -56,7 +53,7 @@ public class CSVReaderMIS {
                                 if (isRowError(i) || isRowStop(i)) {
                                     setEndDate(i);
                                     long productionTimeInSTemp = productionTimeInS;
-                                    calculateProductionTime(startDate, endDate);
+                                    calculateProductionTime();
                                     productionTimeInS += productionTimeInSTemp;
                                     int j = 0;
                                     //Search for a restart of the production
@@ -79,7 +76,7 @@ public class CSVReaderMIS {
                         if (!isRowLastRow(i)) {
                             setEndDate(i);
                             long productionTimeInSTemp = productionTimeInS;
-                            calculateProductionTime(startDate, endDate);
+                            calculateProductionTime();
                             productionTimeInS += productionTimeInSTemp;
                             Mesh meshRead = new Mesh(meshID, startDate, productionTimeInS);
                             Meshes.instance().add(meshRead);
@@ -114,7 +111,7 @@ public class CSVReaderMIS {
                         }
                         while (!(isRowInOperation(i + j) || isRowProduction(i + j) || isRowLastRow(i + j)));
                         setErrorSovedDate(i + j);
-                        calculateErrorTime(errorOccurrenceDate,errorSolvedDate);
+                        calculateErrorTime();
                         Error errorRead = new Error(errorNumber,errorMessage,errorInModuleId, "", errorOccurrenceDate,errorSolvedTimeInS);
                         Errors.instance().add(errorRead);
                         i = i +j;
@@ -185,11 +182,11 @@ public class CSVReaderMIS {
         return rows.get(rowNumber)[4].equals("Stopped");
     }
 
-    private static void calculateProductionTime(Date startDate, Date endDate) {
+    private static void calculateProductionTime() {
         productionTimeInS = (endDate.getTime() - startDate.getTime()) / 1000;
     }
 
-    private static void calculateErrorTime(Date errorOccuranceDate, Date errorSolvedDate) {
-        errorSolvedTimeInS = (errorSolvedDate.getTime() - errorOccuranceDate.getTime()) / 1000;
+    private static void calculateErrorTime() {
+        errorSolvedTimeInS = (errorSolvedDate.getTime() - errorOccurrenceDate.getTime()) / 1000;
     }
 }

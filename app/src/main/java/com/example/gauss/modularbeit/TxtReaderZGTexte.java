@@ -13,14 +13,12 @@ import static org.apache.commons.lang3.StringUtils.trim;
 
 public class TxtReaderZGTexte {
 
-    public static void TxtReaderZGTexteRead(Context ctx, String fileNameZG) {
+    public static void TxtReaderZGTexteRead(InputStream txtStream, String fileNameZG) {
 
-        AssetManager assetManager = ctx.getAssets();
         List<String> zgTexts = new ArrayList<>();
 
         //Reading the file with the descriptions of the modules in the list zgTexts
         try {
-            InputStream txtStream = assetManager.open(fileNameZG);
             InputStreamReader txtStreamReader = new InputStreamReader(txtStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             BufferedReader reader = new BufferedReader(txtStreamReader);
             String line = reader.readLine();

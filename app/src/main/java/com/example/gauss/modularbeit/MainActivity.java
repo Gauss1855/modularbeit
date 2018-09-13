@@ -3,6 +3,7 @@ package com.example.gauss.modularbeit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
    // public static final boolean DEFAULT_KEEP_CR= true;
@@ -24,8 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Context ctx = getApplicationContext();
 
         Button button1 = findViewById(R.id.button);
         Button button2 = findViewById(R.id.button2);
@@ -41,8 +44,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String fileNameMIS = "MISEvents.10000.DEU.csv";
         String fileNameZG = "zgs.DEU.txt";
 
-        CSVReaderMIS.CSVReaderMISRead(ctx,fileNameMIS);
-        TxtReaderZGTexte.TxtReaderZGTexteRead(ctx,fileNameZG);
+        AssetManager assetManager = getApplicationContext().getAssets();
+
+        try {
+            InputStream csvStream = assetManager.open(fileNameMIS);
+            CSVReaderMIS.CSVReaderMISRead(csvStream,fileNameMIS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            InputStream txtStream = assetManager.open(fileNameMIS);
+            TxtReaderZGTexte.TxtReaderZGTexteRead(txtStream,fileNameMIS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         int k = 0; //Testausgabe Produktionszeiten
         for(Mesh mesh: Meshes.instance().getMeshes()){
