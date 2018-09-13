@@ -24,12 +24,9 @@ public class CSVReaderMIS {
     private static Long productionTimeInS;
     private static Long errorSolvedTimeInS;
 
-    public static void CSVReaderMISRead(Context ctx, String fileNameMIS) {
-
-        AssetManager assetManager = ctx.getAssets();
+    public static void CSVReaderMISRead(InputStream csvStream ) {
 
         try {
-            InputStream csvStream = assetManager.open(fileNameMIS);
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);

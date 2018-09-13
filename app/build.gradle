@@ -17,6 +17,7 @@ android {
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+    //sourceSets.test.resources.srcDirs += ["src/test/assets_test"]
 }
 
 dependencies {
