@@ -1,5 +1,6 @@
 package com.example.gauss.modularbeit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Detailview extends AppCompatActivity {
@@ -32,39 +34,35 @@ public class Detailview extends AppCompatActivity {
             }
         });
 
-        int i = 0;
-        List<Error> error = Errors.instance().getErrormessages();
-        Error test = error.get(i);
-        String modulId = "Module Id:" + test.getErrorInModuleId();
 
-        TextView listView = (TextView) findViewById(R.id.textView2);
-        listView.setText(modulId);
+        Bundle secondIntent = getIntent().getExtras();
+        int i = secondIntent.getInt("MY_POSITION");
+
+        List<Error> errorList = Errors.instance().getErrormessages();
+
+        Error error = errorList.get(i);
+        String errorNr = Integer.toString(error.getErrorNumber());
+        String errorMessage = error.getErrorMessage();
+        String modulId =  Integer.toString(error.getErrorInModuleId());
+        String modulText = error.getErrorInModuleText();
+        Date date = error.getErrorOccurrence();
+        String occurrence = date.toString();
+        String solve = Long.toString(error.getErrorSolveTimeInS());
+
+        TextView textErrorNr = (TextView) findViewById(R.id.textErrorNr);
+        TextView textErrorMessage = (TextView) findViewById(R.id.textErrorMessage);
+        TextView textModulId = (TextView) findViewById(R.id.textModulID);
+        TextView textOccurrence = (TextView) findViewById(R.id.textOc);
+        TextView textSolve = (TextView) findViewById(R.id.textSolve);
+
+        textErrorNr.setText(errorNr);
+        textErrorMessage.setText(errorMessage);
+        textModulId.setText(modulId);
+        textOccurrence.setText(occurrence);
+        textSolve.setText(solve);
 
 
 
-
-
-        //werte.add(titel);
-       /* for(Error error : Errors.instance().getErrormessages()){
-            String errorMessage = error.getErrorMessage();
-            String inModuldId = Integer.toString(error.getErrorInModuleId());
-
-
-            //String[] id = error.getErrorNumber(); + "        " +  "       " + error.getErrorMessage();
-
-            ;
-            //werte.add(error.getErrorMessage());
-            i++;
-        }*/
-
-
-
-
-
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                Detailview.this.getBaseContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, werte);
-        listView.setAdapter(adapter);*/
     }
 
 }
