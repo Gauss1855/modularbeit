@@ -46,8 +46,7 @@ public class CSVReaderMIS {
                         String meshID = rows.get(i)[5];
                         setStartDate(i);
                         i++;
-                        if (isRowProduction(i));
-                        else {
+                        if (!isRowProduction(i)){
                             do {
                                 //Search for line with a stop or error to stop production timer
                                 if (isRowError(i) || isRowStop(i)) {
@@ -110,12 +109,14 @@ public class CSVReaderMIS {
                             j++;
                         }
                         while (!(isRowInOperation(i + j) || isRowProduction(i + j) || isRowLastRow(i + j)));
-                        setErrorSovedDate(i + j);
-                        calculateErrorTime();
-                        Error errorRead = new Error(errorNumber,errorMessage,errorInModuleId, "", errorOccurrenceDate,errorSolvedTimeInS);
-                        Errors.instance().add(errorRead);
-                        i = i +j;
-                    }
+                            if (!isRowLastRow(i+j)) {
+                                setErrorSovedDate(i + j);
+                                calculateErrorTime();
+                                Error errorRead = new Error(errorNumber, errorMessage, errorInModuleId, "", errorOccurrenceDate, errorSolvedTimeInS);
+                                Errors.instance().add(errorRead);
+                            }
+                            i = i + j;
+                        }
                     else{
                         i++;
                     }
