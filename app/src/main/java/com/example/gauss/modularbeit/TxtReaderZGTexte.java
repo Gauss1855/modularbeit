@@ -11,8 +11,15 @@ import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.trim;
 
+/**
+ * This class holds the static method TxtReaderZGTexteRead which adds the module description texts to the Errors
+ */
 public class TxtReaderZGTexte {
 
+    /**
+     * This method reads the txt File coming from the txtStream and add the module description to the Errors
+     * @param txtStream is a Inputstream with the txt File
+     */
     public static void TxtReaderZGTexteRead(InputStream txtStream) {
 
         List<String> zgTexts = new ArrayList<>();

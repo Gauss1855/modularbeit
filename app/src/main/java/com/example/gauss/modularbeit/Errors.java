@@ -3,6 +3,10 @@ package com.example.gauss.modularbeit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Errors holds a list with Error, the pattern is a Singleton
+ */
+
 public class Errors {
     private List<Error> errors;
     private static Errors instance = null;

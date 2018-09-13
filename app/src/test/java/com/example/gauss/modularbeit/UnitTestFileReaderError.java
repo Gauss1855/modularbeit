@@ -8,7 +8,14 @@ import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
+
+/**
+ * Unit test Class to test the transformation of the files into the Errors list
+ */
 public class UnitTestFileReaderError {
+    /**
+     * Unit test to test the reading of the Error from the files into the Errors list. The last line of the file is an Error
+     */
     @Test
     public void CSVReaderMISTestErrorLast() throws Exception{
 

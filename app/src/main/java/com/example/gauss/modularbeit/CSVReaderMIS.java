@@ -14,6 +14,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * This class holds the static method CSVReaderMISRead which transforms the CSV files in the object list Meshes and Errors
+ */
 public class CSVReaderMIS {
 
     private static List<String[]> rows;
@@ -24,6 +27,10 @@ public class CSVReaderMIS {
     private static Long productionTimeInS;
     private static Long errorSolvedTimeInS;
 
+    /**
+     * This method reads the CSV File coming from the csvStream and puts the content in the Meshes and Errors list
+     * @param csvStream is a Inputstream with the CSV File
+     */
     public static void CSVReaderMISRead(InputStream csvStream) {
 
         try {

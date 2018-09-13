@@ -2,6 +2,9 @@ package com.example.gauss.modularbeit;
 
 import java.util.Date;
 
+/**
+ * The Error is a failure of the machine functionality. The attributes describe the type of failure and the correction time needed. It bears also the module of the machine where the error did occure
+ */
 public class Error {
     private Integer errorNumber;
     private String errorMessage;

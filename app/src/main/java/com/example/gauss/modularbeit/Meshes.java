@@ -3,6 +3,9 @@ package com.example.gauss.modularbeit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Meshes holds a list with Mesh, the pattern is a Singleton
+ */
 public class Meshes {
     private List<Mesh> meshes;
     private static Meshes instance = null;

@@ -2,6 +2,9 @@ package com.example.gauss.modularbeit;
 
 import java.util.Date;
 
+/**
+ * The Mesh is a mesh produced on the machine. The attributes describe the production time and the type of mesh produced
+ */
 public class Mesh {
     private String meshId;
     private Date productionStart;
