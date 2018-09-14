@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#C6E2FF"
-        android:text="Alert-Meldungen aufrufen"
+        android:text="Fehler-Meldungen aufrufen"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leer2"/>
