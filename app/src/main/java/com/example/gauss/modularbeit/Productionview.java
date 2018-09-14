@@ -38,10 +38,23 @@ public class Productionview extends AppCompatActivity {
 
 
         ArrayList<String> werte = new ArrayList<>();
+       // ArrayList<String> wertezwei = new ArrayList<>();
 
+       // int i = 0;
+        //String eins = "1";
         for(Mesh mesh : Meshes.instance().getMeshes()){
-            werte.add(mesh.getMeshId());
+            String test = mesh.getMeshId() + "  |  " + mesh.getProductionStart();
+            werte.add(test);
         }
+
+        //for(String test : werte){
+
+          // if(test.equals("1")) {
+           // wertezwei.add(test);
+         //  }
+      // } ;
+
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 Productionview.this.getBaseContext(),

@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -37,7 +38,7 @@ public class CSVReaderMIS {
             InputStreamReader csvStreamReader = new InputStreamReader(csvStream,"UTF-16LE");        // Hex FE at the beginning of the file stands for "UTF16-LE" fomated file
             com.opencsv.CSVReader csvReader = new com.opencsv.CSVReader(csvStreamReader, '\t');
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
-            startDate = new Date();
+            //startDate = new LocalDate();
             endDate = new Date();
             productionTimeInS = 0L;
 

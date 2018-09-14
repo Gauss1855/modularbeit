@@ -13,7 +13,7 @@
         android:id="@+id/MeshId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mesh ID"
+        android:text="Gitter ID"
         android:textAlignment="center"
         android:textSize="8pt"
         android:textStyle="bold"
@@ -87,5 +87,31 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ProductionTime"
          />
+
+    <TextView
+        android:id="@+id/ProductionEndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Produktions Ende"
+        android:textAlignment="center"
+        android:textSize="8pt"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textProductionTime"
+        app:layout_constraintTop_toBottomOf="@+id/textProductionEndTime" />
+
+    <TextView
+        android:id="@+id/textProductionEndTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ProductionEndTime"
+        />
 
 </android.support.constraint.ConstraintLayout>

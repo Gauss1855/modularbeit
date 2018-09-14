@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -37,16 +38,24 @@ public class Detailviewproduction extends AppCompatActivity {
         Mesh mesh = meshList.get(i);
         String meshId = mesh.getMeshId();
         Date startTime = mesh.getProductionStart();
+        Date endTime = new Date();
+        long time = startTime.getTime()/1000;
+        time = (time + mesh.getProductionTimeInS())*1000;
+        endTime.setTime(time);
+
         String pStart = startTime.toString();
-        String pTime = Long.toString(mesh.getProductionTimeInS());
+        String pEnde = endTime.toString();
+        String pTime = Long.toString(mesh.getProductionTimeInS())  + "  " + "Sekunden";
 
         TextView textmeshId = (TextView) findViewById(R.id.textMeshId);
         TextView textPstart = (TextView) findViewById(R.id.textProduktionStart);
         TextView textPtime = (TextView) findViewById(R.id.textProductionTime);
+        TextView textEtime = (TextView) findViewById(R.id.textProductionEndTime);
 
         textmeshId.setText(meshId);
         textPstart.setText(pStart);
         textPtime.setText(pTime);
+        textEtime.setText(pEnde);
     }
 
 }
