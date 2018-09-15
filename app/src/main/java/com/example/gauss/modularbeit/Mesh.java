@@ -1,5 +1,7 @@
 package com.example.gauss.modularbeit;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -21,6 +23,11 @@ public class Mesh {
         return meshId;
     }
 
+    @Override
+    public String toString() {
+        return "GitterId: " + getMeshId() + " Startzeit: " + getProductionStartasString() + " Produktionsdauer: " + getProductionTimeInS().toString();
+    }
+
     public Date getProductionStart() {
         return productionStart;
     }
@@ -39,5 +46,14 @@ public class Mesh {
 
     public void setProductionTimeInS(Long productionTimeInS) {
         this.productionTimeInS = productionTimeInS;
+    }
+
+    /**
+     * Converts the productionStart Date to String
+     * @return
+     */
+    public String getProductionStartasString(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        return dateFormat.format(productionStart);
     }
 }

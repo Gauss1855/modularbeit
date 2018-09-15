@@ -60,7 +60,7 @@ public class Productionview extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 Productionview.this.getBaseContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, werte);
+                android.R.layout.simple_list_item_1, android.R.id.text1,Meshes.instance().getMeshesAsStings());
         listView.setAdapter(adapter);
 
 

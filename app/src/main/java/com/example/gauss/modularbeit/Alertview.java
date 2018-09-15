@@ -40,7 +40,7 @@ public class Alertview extends AppCompatActivity {
 
         ArrayList<String> werte = new ArrayList<>();
 
-        for(Error error : Errors.instance().getErrormessages()){
+        for(Error error : Errors.instance().getErrors()){
 
             werte.add(error.getErrorMessage());
 

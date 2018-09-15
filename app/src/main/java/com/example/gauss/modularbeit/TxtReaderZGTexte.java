@@ -1,7 +1,5 @@
 package com.example.gauss.modularbeit;
 
-import android.content.Context;
-import android.content.res.AssetManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +36,7 @@ public class TxtReaderZGTexte {
         }
 
         //Set the error message text according to the text in the zgs.txt
-        for(Error error : Errors.instance().getErrormessages()){
+        for(Error error : Errors.instance().getErrors()){
             for(String zgLine : zgTexts){
                 int textPosition = zgLine.indexOf("#" + Integer.toString(error.getErrorInModuleId()));
                 if (textPosition != -1){
