@@ -9,14 +9,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Productionview extends AppCompatActivity {
 
-    ListView listView;
-    Intent myIntent;
+    //ListView listView;
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> meshGroup = Arrays.asList("Group1", "Group2");
+    List<String> meshItem = Arrays.asList("Item1", "Item2");
+    //Intent myIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +35,49 @@ public class Productionview extends AppCompatActivity {
 
         setTitle("Ansicht Produktionsdaten");
 
+        expListView = (ExpandableListView) findViewById(R.id.production_list);
+
+        listAdapter = new ExpandableListAdapter(this, meshGroup, meshItem);
+
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+
+        // Listview Group click listener
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                // Toast.makeText(getApplicationContext(),
+                // "Group Clicked " + listDataHeader.get(groupPosition),
+                // Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+        // Listview Group expanded listener
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        meshGroup.get(groupPosition) + " Expanded",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Listview Group collasped listener
+        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        meshItem.get(groupPosition) + " Collapsed",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +87,9 @@ public class Productionview extends AppCompatActivity {
             }
         });
 
-        listView = (ListView) findViewById(R.id.production_list);
+
+
+ /*       listView = (ListView) findViewById(R.id.production_list);
 
 
         ArrayList<String> werte = new ArrayList<>();
@@ -76,7 +129,7 @@ public class Productionview extends AppCompatActivity {
                 startActivity(appInfo);
             }
 
-        });
+        });*/
     }
 
 }
