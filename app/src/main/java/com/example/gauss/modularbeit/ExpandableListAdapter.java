@@ -9,15 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context ctx;
     private List<String> meshGroup;
-    private List<String> meshItem;
+    private  HashMap<String, List<String>> meshItem;
 
-    public ExpandableListAdapter(Context ctx, List<String> meshGroup, List<String> meshItem) {
+    public ExpandableListAdapter(Context ctx, List<String> meshGroup,  HashMap<String, List<String>> meshItem) {
         this.ctx = ctx;
         this.meshGroup = meshGroup;
         this.meshItem = meshItem;
@@ -25,32 +26,34 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        return 0;
+        return this.meshGroup.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return 0;
+        return this.meshItem.get(this.meshGroup.get(groupPosition))
+                .size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return null;
+        return this.meshGroup.get(groupPosition);
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosition) {
-        return null;
+    public Object getChild(int groupPosition, int childPosititon) {
+        return this.meshItem.get(this.meshGroup.get(groupPosition))
+                .get(childPosititon);
     }
 
     @Override
     public long getGroupId(int groupPosition) {
-        return 0;
+        return groupPosition;
     }
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return 0;
+        return childPosition;
     }
 
     @Override

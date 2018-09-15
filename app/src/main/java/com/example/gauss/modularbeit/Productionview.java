@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Productionview extends AppCompatActivity {
@@ -23,7 +24,9 @@ public class Productionview extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> meshGroup = Arrays.asList("Group1", "Group2");
-    List<String> meshItem = Arrays.asList("Item1", "Item2");
+    List<String> item1 = Arrays.asList("Item1.1", "Item1.2");
+    List<String> item2 = Arrays.asList("Item2.1", "Item2.2");
+    HashMap<String, List<String>> meshItem;
     //Intent myIntent;
 
     @Override
@@ -34,6 +37,10 @@ public class Productionview extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setTitle("Ansicht Produktionsdaten");
+
+        meshItem = new HashMap<String, List<String>>();
+        meshItem.put("Group1",item1);
+        meshItem.put("Group2",item2);
 
         expListView = (ExpandableListView) findViewById(R.id.production_list);
 
