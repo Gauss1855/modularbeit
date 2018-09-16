@@ -22,7 +22,7 @@ public class Errors {
         errors = new ArrayList<>();
     }
 
-    public List<Error> getErrormessages() {
+    public List<Error> getErrors() {
         return errors;
     }
 
@@ -35,7 +35,7 @@ public class Errors {
         return errors.size();
     }
 
-    public Error get(int i) {
+    public Error getError(int i) {
         return errors.get(i);
     }
 }

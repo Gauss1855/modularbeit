@@ -25,6 +25,18 @@ public class Meshes {
         return meshes;
     }
 
+    /**
+     * The list wish Mesh with Objects will be converted to Mesh with Strings
+     * @return
+     */
+    public List<String> getMeshesAsStings() {
+        List<String> meshesString = new ArrayList<>(meshes.size());
+        for(Mesh mesh : meshes){
+            meshesString.add(mesh.toString());
+        }
+        return meshesString;
+    }
+
     public boolean add(Mesh mesh) {
         meshes.add(mesh);
         return true;
@@ -34,7 +46,7 @@ public class Meshes {
         return meshes.size();
     }
 
-    public Mesh get(int i) {
+    public Mesh getMesh(int i) {
         return meshes.get(i);
     }
 }
