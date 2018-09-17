@@ -21,12 +21,14 @@ import java.util.List;
 public class Productionview extends AppCompatActivity {
 
     //ListView listView;
+    /*
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> meshGroup = Arrays.asList("Group1", "Group2");
     List<String> item1 = Arrays.asList("Item1.1", "Item1.2");
     List<String> item2 = Arrays.asList("Item2.1", "Item2.2");
     HashMap<String, List<String>> meshItem;
+    */
     //Intent myIntent;
 
     @Override
@@ -38,9 +40,43 @@ public class Productionview extends AppCompatActivity {
 
         setTitle("Ansicht Produktionsdaten");
 
+        /*
         meshItem = new HashMap<String, List<String>>();
         meshItem.put("Group1",item1);
         meshItem.put("Group2",item2);
+        */
+
+        ExpandableListAdapter listAdapter;
+        ExpandableListView expListView;
+
+        //ArrayList<String> werte = new ArrayList<>();
+
+        final HashMap<String, List<String>> meshItem;
+        meshItem = new HashMap<String, List<String>>();
+        final ArrayList<String> meshGroup = new ArrayList();
+        final ArrayList<String> meshsTime = new ArrayList();
+        final ArrayList<String> meshpTime = new ArrayList();
+        List<List> item1 = new ArrayList<List>();
+        List<String> item2 = Arrays.asList("Item2.1", "Item2.2");
+        int i = 0;
+
+
+        for(Mesh mesh : Meshes.instance().getMeshes()){
+
+            meshsTime.add(mesh.getProductionStartasString().toString());
+            meshpTime.add( mesh.getProductionTimeInS().toString());
+            meshGroup.add(mesh.getMeshId());
+            //item1.add(meshsTime.get(i));
+            item1 = Arrays.asList(item2);
+            meshItem.put(meshGroup.get(i),item1.get(i));
+           // meshItem.put(meshGroup.get(i),item2);
+            i++;
+
+        }
+
+
+
+
 
         expListView = (ExpandableListView) findViewById(R.id.production_list);
 
@@ -93,6 +129,9 @@ public class Productionview extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+
 
 
 
