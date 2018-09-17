@@ -53,26 +53,34 @@ public class Productionview extends AppCompatActivity {
 
         final HashMap<String, List<String>> meshItem;
         meshItem = new HashMap<String, List<String>>();
-        final ArrayList<String> meshGroup = new ArrayList();
-        final ArrayList<String> meshsTime = new ArrayList();
-        final ArrayList<String> meshpTime = new ArrayList();
-        List<List> item1 = new ArrayList<List>();
-        List<String> item2 = Arrays.asList("Item2.1", "Item2.2");
+        final List<String> meshGroup = new ArrayList();
+
+        List<List> item2 = new ArrayList<>();
+        List<String> item3 = Arrays.asList();
         int i = 0;
 
-
+               /*
+        for(Mesh mesh : Meshes.instance().getMeshes()){
+            if(mesh.getMeshId().equals("SC 45 SIK 3LU"))
+                item2.add(mesh.getMeshId());
+        }
+        */
         for(Mesh mesh : Meshes.instance().getMeshes()){
 
-            meshsTime.add(mesh.getProductionStartasString().toString());
-            meshpTime.add( mesh.getProductionTimeInS().toString());
+            //meshsTime.add(mesh.getProductionStartasString().toString());
+            //meshpTime.add( mesh.getProductionTimeInS().toString());
             meshGroup.add(mesh.getMeshId());
-            //item1.add(meshsTime.get(i));
-            item1 = Arrays.asList(item2);
-            meshItem.put(meshGroup.get(i),item1.get(i));
+            item3 = Arrays.asList(mesh.getProductionStartasString());
+
+
+
+
+           meshItem.put(meshGroup.get(i), item3);
            // meshItem.put(meshGroup.get(i),item2);
             i++;
 
         }
+
 
 
 

@@ -37,7 +37,9 @@ public class Detailviewproduction extends AppCompatActivity {
 
         List<Mesh> meshList = Meshes.instance().getMeshes();
 
+
         Mesh mesh = meshList.get(i);
+
         String meshId = mesh.getMeshId();
         Date startTime = mesh.getProductionStart();
         Date endTime = new Date();
