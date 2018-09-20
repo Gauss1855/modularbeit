@@ -26,6 +26,18 @@ public class Errors {
         return errors;
     }
 
+    /**
+     * The list of Error with Objects will be converted to Error with Strings
+     * @return
+     */
+    public List<String> getErrorsAsStings() {
+        List<String> errorsString = new ArrayList<>(errors.size());
+        for(Error error : errors){
+            errorsString.add(error.toString());
+        }
+        return errorsString;
+    }
+
     public boolean add(Error error) {
         errors.add(error);
         return true;

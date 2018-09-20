@@ -28,18 +28,9 @@ public class Alertview extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.alert_list);
 
-
-        ArrayList<String> werte = new ArrayList<>();
-
-        for(Error error : Errors.instance().getErrors()){
-
-            werte.add(error.getErrorMessage());
-
-        }
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 Alertview.this.getBaseContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, werte);
+                android.R.layout.simple_list_item_1, android.R.id.text1, Errors.instance().getErrorsAsStings());
         listView.setAdapter(adapter);
 
 
@@ -49,8 +40,6 @@ public class Alertview extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
                 Intent appInfo = new Intent(Alertview.this, Detailview.class);
-                //String itemValue = (String) listView.getItemAtPosition(position).toString();
-                //int itemValue = Integer.toString(position);
                 appInfo.putExtra("MY_POSITION", position);
                 startActivity(appInfo);
             }

@@ -23,11 +23,6 @@ public class Mesh {
         return meshId;
     }
 
-    @Override
-    public String toString() {
-        return "GitterId: " + getMeshId() + " Startzeit: " + getProductionStartasString() + " Produktionsdauer: " + getProductionTimeInS().toString();
-    }
-
     public Date getProductionStart() {
         return productionStart;
     }
@@ -55,5 +50,12 @@ public class Mesh {
     public String getProductionStartasString(){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         return dateFormat.format(productionStart);
+    }
+
+    @Override
+    public String toString() {
+        return "GitterId: " + getMeshId() +
+                " Startzeit: " + getProductionStartasString() +
+                " Produktionsdauer [s]: " + getProductionTimeInS().toString();
     }
 }

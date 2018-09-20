@@ -29,26 +29,6 @@ public class Productionview extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.production_list);
 
-
-        ArrayList<String> werte = new ArrayList<>();
-       // ArrayList<String> wertezwei = new ArrayList<>();
-
-       // int i = 0;
-        //String eins = "1";
-        for(Mesh mesh : Meshes.instance().getMeshes()){
-            String test = mesh.getMeshId() + "  |  " + mesh.getProductionStart();
-            werte.add(test);
-        }
-
-        //for(String test : werte){
-
-          // if(test.equals("1")) {
-           // wertezwei.add(test);
-         //  }
-      // } ;
-
-
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 Productionview.this.getBaseContext(),
                 android.R.layout.simple_list_item_1, android.R.id.text1,Meshes.instance().getMeshesAsStings());
@@ -61,8 +41,6 @@ public class Productionview extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
                 Intent appInfo = new Intent(Productionview.this, Detailviewproduction.class);
-                //String itemValue = (String) listView.getItemAtPosition(position).toString();
-                //int itemValue = Integer.toString(position);
                 appInfo.putExtra("MY_POSITION", position);
                 startActivity(appInfo);
             }

@@ -26,7 +26,7 @@ public class Meshes {
     }
 
     /**
-     * The list wish Mesh with Objects will be converted to Mesh with Strings
+     * The list of Mesh with Objects will be converted to Mesh with Strings
      * @return
      */
     public List<String> getMeshesAsStings() {

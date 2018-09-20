@@ -63,4 +63,10 @@ public class Error {
     public void setErrorSolveTimeInS(Long errorSolveTimeInS) {this.errorSolveTimeInS = errorSolveTimeInS;
     }
 
+    @Override
+    public String toString() {
+        return "Fehlernummer: " + errorNumber +
+                " Auftretenszeit: " + errorOccurrence +
+                " Korrekturdauer [s]: " + errorSolveTimeInS ;
+    }
 }
