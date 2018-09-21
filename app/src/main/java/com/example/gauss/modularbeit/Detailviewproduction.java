@@ -13,7 +13,7 @@ public class Detailviewproduction extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailviewproduction);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setTitle("Detailansicht");
@@ -35,10 +35,10 @@ public class Detailviewproduction extends AppCompatActivity {
         String pEnde = endTime.toString();
         String pTime = Long.toString(mesh.getProductionTimeInS())  + "  " + "Sekunden";
 
-        TextView textmeshId = (TextView) findViewById(R.id.textMeshId);
-        TextView textPstart = (TextView) findViewById(R.id.textProduktionStart);
-        TextView textPtime = (TextView) findViewById(R.id.textProductionTime);
-        TextView textEtime = (TextView) findViewById(R.id.textProductionEndTime);
+        TextView textmeshId = findViewById(R.id.textMeshId);
+        TextView textPstart = findViewById(R.id.textProduktionStart);
+        TextView textPtime = findViewById(R.id.textProductionTime);
+        TextView textEtime = findViewById(R.id.textProductionEndTime);
 
         textmeshId.setText(meshId);
         textPstart.setText(pStart);
