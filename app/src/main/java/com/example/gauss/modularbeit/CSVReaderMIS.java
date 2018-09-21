@@ -1,16 +1,10 @@
 package com.example.gauss.modularbeit;
 
-
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
-import android.content.res.AssetManager;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;

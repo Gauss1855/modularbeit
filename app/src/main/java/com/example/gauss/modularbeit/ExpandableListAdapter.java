@@ -5,10 +5,8 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<String> meshGroup;
     private  HashMap<String, List<String>> meshItem;
 
-    public ExpandableListAdapter(Context ctx, List<String> meshGroup,  HashMap<String, List<String>> meshItem) {
+    protected ExpandableListAdapter(Context ctx, List<String> meshGroup,  HashMap<String, List<String>> meshItem) {
         this.ctx = ctx;
         this.meshGroup = meshGroup;
         this.meshItem = meshItem;

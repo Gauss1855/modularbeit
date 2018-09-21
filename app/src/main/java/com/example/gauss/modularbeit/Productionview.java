@@ -1,20 +1,12 @@
 package com.example.gauss.modularbeit;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,7 +25,7 @@ public class Productionview extends AppCompatActivity {
 
         setTitle("Ansicht Produktionsdaten");
 
-        meshItem = new HashMap<String, List<String>>();
+        meshItem = new HashMap<>();
         //filling the HashMap with the items to display
         for(String groupItem : Meshes.instance().getMeshesAsStringGroup()){
             meshItem.put(groupItem, Meshes.instance().getMeshesAsStringItem(groupItem));
