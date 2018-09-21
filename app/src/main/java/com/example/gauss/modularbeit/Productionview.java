@@ -20,14 +20,9 @@ import java.util.List;
 
 public class Productionview extends AppCompatActivity {
 
-    //ListView listView;
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
-    List<String> meshGroup = Arrays.asList("Group1", "Group2");
-    List<String> item1 = Arrays.asList("Item1.1", "Item1.2");
-    List<String> item2 = Arrays.asList("Item2.1", "Item2.2");
     HashMap<String, List<String>> meshItem;
-    //Intent myIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +34,14 @@ public class Productionview extends AppCompatActivity {
         setTitle("Ansicht Produktionsdaten");
 
         meshItem = new HashMap<String, List<String>>();
-        meshItem.put("Group1",item1);
-        meshItem.put("Group2",item2);
+        //filling the HashMap with the items to display
+        for(String groupItem : Meshes.instance().getMeshesAsStringGroup()){
+            meshItem.put(groupItem, Meshes.instance().getMeshesAsStringItem(groupItem));
+        }
 
         expListView = (ExpandableListView) findViewById(R.id.production_list);
 
-        listAdapter = new ExpandableListAdapter(this, meshGroup, meshItem);
+        listAdapter = new ExpandableListAdapter(this, Meshes.instance().getMeshesAsStringGroup(), meshItem);
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
@@ -68,7 +65,7 @@ public class Productionview extends AppCompatActivity {
             @Override
             public void onGroupExpand(int groupPosition) {
                 Toast.makeText(getApplicationContext(),
-                        meshGroup.get(groupPosition) + " Expanded",
+                        Meshes.instance().getMeshesAsStringGroup().get(groupPosition) + " Expanded",
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -93,50 +90,6 @@ public class Productionview extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-
-
- /*       listView = (ListView) findViewById(R.id.production_list);
-
-
-        ArrayList<String> werte = new ArrayList<>();
-       // ArrayList<String> wertezwei = new ArrayList<>();
-
-       // int i = 0;
-        //String eins = "1";
-        for(Mesh mesh : Meshes.instance().getMeshes()){
-            String test = mesh.getMeshId() + "  |  " + mesh.getProductionStart();
-            werte.add(test);
-        }
-
-        //for(String test : werte){
-
-          // if(test.equals("1")) {
-           // wertezwei.add(test);
-         //  }
-      // } ;
-
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                Productionview.this.getBaseContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1,Meshes.instance().getMeshesAsStings());
-        listView.setAdapter(adapter);
-
-
-        listView.setClickable(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-
-                Intent appInfo = new Intent(Productionview.this, Detailviewproduction.class);
-                //String itemValue = (String) listView.getItemAtPosition(position).toString();
-                //int itemValue = Integer.toString(position);
-                appInfo.putExtra("MY_POSITION", position);
-                startActivity(appInfo);
-            }
-
-        });*/
-    }
+     }
 
 }
