@@ -37,6 +37,38 @@ public class Meshes {
         return meshesString;
     }
 
+    /**
+     * A list with the different mesh type (meshId) will be extracted from meshes
+     * @return
+     */
+    public List<String> getMeshesAsStringGroup(){
+        List<String> meshesStringGroup = new ArrayList<>();
+        String meshGroupItem = Meshes.instance().getMesh(0).getMeshId();
+        meshesStringGroup.add(meshGroupItem);
+        for (Mesh mesh : meshes){
+            if(!meshGroupItem.equals(mesh.getMeshId())){
+                meshesStringGroup.add(mesh.getMeshId());
+                meshGroupItem = mesh.getMeshId();
+            }
+        }
+        return meshesStringGroup;
+    }
+
+    /**
+     * A list with diffent mesh form the same typ will be returned
+     * @param groupEntry is the meshId of a mesh typ
+     * @return
+     */
+    public List<String > getMeshesAsStringItem(String groupEntry){
+        List<String> meshesStringItem = new ArrayList<>();
+        for (Mesh mesh : meshes){
+            if(!groupEntry.equals(mesh.getMeshId())){
+                meshesStringItem.add(mesh.toString());
+            }
+        }
+        return meshesStringItem;
+    }
+
     public boolean add(Mesh mesh) {
         meshes.add(mesh);
         return true;

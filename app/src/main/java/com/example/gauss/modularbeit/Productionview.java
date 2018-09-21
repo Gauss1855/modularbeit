@@ -9,14 +9,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class Productionview extends AppCompatActivity {
 
-    ListView listView;
-    Intent myIntent;
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    HashMap<String, List<String>> meshItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,25 +33,63 @@ public class Productionview extends AppCompatActivity {
 
         setTitle("Ansicht Produktionsdaten");
 
-        listView = (ListView) findViewById(R.id.production_list);
+        meshItem = new HashMap<String, List<String>>();
+        //filling the HashMap with the items to display
+        for(String groupItem : Meshes.instance().getMeshesAsStringGroup()){
+            meshItem.put(groupItem, Meshes.instance().getMeshesAsStringItem(groupItem));
+        }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                Productionview.this.getBaseContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1,Meshes.instance().getMeshesAsStings());
-        listView.setAdapter(adapter);
+        expListView = (ExpandableListView) findViewById(R.id.production_list);
 
+        listAdapter = new ExpandableListAdapter(this, Meshes.instance().getMeshesAsStringGroup(), meshItem);
 
-        listView.setClickable(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+
+        // Listview Group click listener
+        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-
-                Intent appInfo = new Intent(Productionview.this, Detailviewproduction.class);
-                appInfo.putExtra("MY_POSITION", position);
-                startActivity(appInfo);
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                // Toast.makeText(getApplicationContext(),
+                // "Group Clicked " + listDataHeader.get(groupPosition),
+                // Toast.LENGTH_SHORT).show();
+                return false;
             }
-
         });
-    }
+
+        // Listview Group expanded listener
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        Meshes.instance().getMeshesAsStringGroup().get(groupPosition) + " Expanded",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Listview Group collasped listener
+        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        meshItem.get(groupPosition) + " Collapsed",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+     }
 
 }
