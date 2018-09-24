@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The Productionview creates a HashMap for the production data. 
+ */
+
 public class Productionview extends AppCompatActivity {
 
     ExpandableListAdapter listAdapter;

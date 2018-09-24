@@ -10,6 +10,10 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Expands the ArrayList for the Produktionsdaten and sort the informations about the meshGroup.
+ */
+
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context ctx;

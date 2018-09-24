@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+/**
+ * Creates the Help-Site
+ */
+
 public class Helpview extends AppCompatActivity {
 
     @Override

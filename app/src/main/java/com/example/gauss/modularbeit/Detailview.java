@@ -11,6 +11,10 @@ import android.widget.TextView;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Set the Detailansicht with an ArrayList who includes all necessary informations about the Alerts.
+ */
+
 public class Detailview extends AppCompatActivity {
 
     @Override
