@@ -14,7 +14,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- * Create an View about the Alerts with an ArrayList.
+ * Create an View about the Alerts with an ArrayList. 
  */
 
 public class Alertview extends AppCompatActivity {
