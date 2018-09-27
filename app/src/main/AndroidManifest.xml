@@ -35,10 +35,6 @@
             android:name=".Detailview"
             android:label="@string/title_activity_detailview"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Detailviewproduction"
-            android:label="@string/title_activity_detailviewproduction"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
