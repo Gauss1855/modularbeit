@@ -44,12 +44,14 @@ public class Detailview extends AppCompatActivity {
         TextView textErrorNr = (TextView) findViewById(R.id.textErrorNr);
         TextView textErrorMessage = (TextView) findViewById(R.id.textErrorMessage);
         TextView textModulId = (TextView) findViewById(R.id.textModulID);
+        TextView textModul = (TextView) findViewById(R.id.textModulText);
         TextView textOccurrence = (TextView) findViewById(R.id.textOc);
         TextView textSolve = (TextView) findViewById(R.id.textSolve);
 
         textErrorNr.setText(errorNr);
         textErrorMessage.setText(errorMessage);
         textModulId.setText(modulId);
+        textModul.setText(modulText);
         textOccurrence.setText(occurrence);
         textSolve.setText(solve);
 
